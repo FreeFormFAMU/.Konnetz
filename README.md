@@ -13,6 +13,12 @@ To sustain the platform, the app deducts a small fee based on the agreed-upon jo
 https://github.com/FreeFormFAMU/.Konnetz/assets/96313489/aff47ce5-a77e-40ee-84e9-63429eebfd78
 
 
+
+## Schema
+
+
+## Models
+
 ## User
 | Property | Type | Description |
 |-----------------|-----------------|-----------------|
@@ -101,6 +107,32 @@ https://github.com/FreeFormFAMU/.Konnetz/assets/96313489/aff47ce5-a77e-40ee-84e9
 | created_at | Timestamp | Date Value |
 | likes_count | int | like_count int value |
 | comments_count | int | comments_count int value |
+
+
+# Networking
+
+Home Screen Feed
+
+  (Read/GET)Query posts randomly based off of saved posts
+
+  (Create/POST) Create a new save on a post
+
+  (Delete) Delete existing save
+
+Create Post Screen
+
+  (Create/POST) Create a new post object
+
+Profile Screen
+
+  (Read/Get) Query logged in user object
+
+  (Update/PUT) Update user profile image
+
+  (Update/PUT) Update user account information
+
+
+
 
 
 
