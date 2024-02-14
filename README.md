@@ -12,6 +12,36 @@ Connetz is a social networking app designed for individuals to publicly showcase
   1. Phase one focuses on skill posting and portfolio showcasing.
   2. Phase two targets larger organizations, likely introducing features tailored for their needs.
   3. Phase three caters to individuals seeking specific services, potentially incorporating features for service requests and fulfillment.
+ 
+Product Spec
+1. User Stories (Required and Optional)
+Required Must-have Stories
+* User logs in to access previous chats and preference settings
+* Profiles have a chat window to get to communicate.
+* Profile pages for each user
+* Profiles have a section to upload/view previous work
+* Settings (Accesibility, Notification, General, etc.)
+Optional Nice-to-have Stories
+* Recommended businesses section
+* Profile Add-On: Verified reviews from users on the app
+
+
+2. Screen Archetypes
+
+
+3. Navigation
+Tab Navigation (Tab to Screen)
+* Landing Screen (with collection of customized business profiles)
+* Profile
+* Settings
+* Search
+Optional:
+* Saved Profile/Posts Collection
+Flow Navigation (Screen to Screen)
+* Forced Log-in -> Account creation if no log in is available
+* Landing Screen -> View Profiles -> Chat
+* Profile -> Text field to be modified.
+	•	Settings -> Toggle settings
 
 ![processed-B9DA4F67-6BF4-436B-933B-BEC8482696EC](https://github.com/FreeFormFAMU/.github/assets/96313489/496c3cb1-ce0c-4a27-bbd3-08a64b89aeca)
 
