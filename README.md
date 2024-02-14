@@ -1,16 +1,24 @@
-# .Connectz
-COP3060 Class project
+# Connetz: A Social Networking App
 
-A dynamic community application designed to bring together individuals with diverse skills, enabling them to monetize their expertise. This platform serves as a digital marketplace where users can advertise the services they offer and set their own prices.
+Connetz is a social networking app designed for individuals to publicly showcase their skills and portfolios, engage in discussions, chat with others, and monetize their expertise. It aims to foster collaboration and communication among users from diverse backgrounds. 
 
-The app’s primary function is to facilitate the discovery of various skills. It incorporates a robust search feature that allows users to find the exact skill set they need. Whether you’re looking for a graphic designer, a software developer, or a language tutor, this app connects you with the right professional.
-In addition to its search functionality, the app includes direct messaging capabilities, fostering seamless communication between users. This feature ensures that all details regarding a job can be discussed and agreed upon directly within the app.Moreover, the app integrates a scheduling feature, allowing users to manage their bookings efficiently. This ensures that both parties are clear about the timing and duration of the job.
+## App Evaluation
 
-To sustain the platform, the app deducts a small fee based on the agreed-upon job price. This fee helps maintain and improve the app’s features, ensuring it continues to serve as a reliable platform for skill exchange. In essence, this community application is more than just a platform; it’s a tool that empowers individuals to monetize their skills, fosters collaboration, and promotes a culture of shared growth and learning. It’s not just about finding a job; it’s about building a community.
+- **Category:** Social Networking
+- **Story:** Connetz allows users to promote their talents and portfolios within their professional fields. Users can engage in public discussions, chat with others, share content, and monetize their skills through posts.
+- **Market:** This app is designed for everyone, catering to a wide user base and enabling collaboration and communication among individuals from diverse backgrounds.
+- **Habit:** Users can use the app at their convenience, whether they are seeking services, events, or organizational opportunities.
+- **Scope:** Connetz has planned phases for its development:
+  1. Phase one focuses on skill posting and portfolio showcasing.
+  2. Phase two targets larger organizations, likely introducing features tailored for their needs.
+  3. Phase three caters to individuals seeking specific services, potentially incorporating features for service requests and fulfillment.
+
 ![processed-B9DA4F67-6BF4-436B-933B-BEC8482696EC](https://github.com/FreeFormFAMU/.github/assets/96313489/496c3cb1-ce0c-4a27-bbd3-08a64b89aeca)
 
 
 https://github.com/FreeFormFAMU/.Konnetz/assets/96313489/aff47ce5-a77e-40ee-84e9-63429eebfd78
+
+
 
 
 
