@@ -27,9 +27,34 @@ Optional Nice-to-have Stories
 
 
 2. Screen Archetypes
+    • Login
+	• Register - User signs up or logs into their account
+		○ Upon Download/Reopening of the application, the user is prompted to log in to gain access to their profile information.
+		○ …
+	• Messaging Screen - Chat for users to communicate (direct 1-on-1)
+		○ Message/chat previews that are searchable by keyword
+	• Profile Screen
+		○ Allows user to upload a photo and fill in information( description and links) that reflects their interests or the services/ events they can provide or provide information about so it can be available to others
+	• Search Screen.
+		○ Allows user to be able to choose their desired accounts or services/events of preference by way of keywords or tags
+		
+	• Interests Screen
+		○ Let's people select interests by existing tags
+		○ others
+	• Post creation Screen.
+		○ Allows user to add text(caption and tags, images, and a price/option to purchase the service if applicable 
+		○ others
+	• Draft Screen.
+		○ Allows user to see stored, created but unposted (drafted) posts and are able to select and continue where they left off
+		○ others
+	• Home Screen.
+		○ Can see posts and offers/promotions available for accounts followed and recommended accounts/posts on the basis of similar interests 
+		
+![image](https://github.com/FreeFormFAMU/.Connetz/assets/106197984/06ca16bc-8a56-4aaa-9d57-8776dac4ad74)
 
 
-3. Navigation
+
+4. Navigation
 Tab Navigation (Tab to Screen)
 * Landing Screen (with collection of customized business profiles)
 * Profile
