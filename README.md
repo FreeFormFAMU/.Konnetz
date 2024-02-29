@@ -74,10 +74,11 @@ Flow Navigation (Screen to Screen)
 https://github.com/FreeFormFAMU/.Konnetz/assets/96313489/aff47ce5-a77e-40ee-84e9-63429eebfd78
 
 
+# Sprint Cycle 1 Database 
 
 
+https://github.com/FreeFormFAMU/.Connetz/assets/96313489/dd24993b-e1fc-4b1f-835b-bd0fd816d119
 
-## Schema
 
 
 ## Models
