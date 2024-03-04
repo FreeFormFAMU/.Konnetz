@@ -1,6 +1,6 @@
 package com.connetz.connetz.services;
 
-import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.*;
 import org.springframework.stereotype.Service;
 
 @Service
