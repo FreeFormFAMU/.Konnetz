@@ -6,8 +6,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 import com.google.firebase.remoteconfig.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 // In the User control should have the follow_user, following_user, and skills service .
@@ -46,6 +45,26 @@ public class UserServices {
         ApiFuture<DocumentSnapshot> future = userCollection.document(userId).get();
         DocumentSnapshot document = future.get();
         return documentSnapshotToUserService(document);
+    }
+
+    public WriteResult updateUserinformation(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
+    {
+        String[] notAllowed = {"created_at", "user_id", "username"};
+
+        List<String> notAllowedFields = Arrays.asList(notAllowed);
+
+        Map<String, Object> formattedValues = new HashMap<>();
+
+        for(Map.Entry<String, Object> entry : updateFields.entrySet()) {
+            String key = entry.getKey();
+            if(!notAllowedFields.contains(key)) {
+                formattedValues.put(key, entry.getValue());
+
+            }
+        }
+        DocumentReference userDoc = firestore.collection("Users").document(id);
+        ApiFuture<WriteResult> result = userDoc.update(formattedValues);
+        return result.get();
     }
 
     // Getting all the followers that Follow this user

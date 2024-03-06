@@ -58,7 +58,7 @@ public class PostServices {
 
             }
         }
-        DocumentReference userDoc = firestore.collection("Tasks").document(id);
+        DocumentReference userDoc = firestore.collection("Posts").document(id);
         ApiFuture<WriteResult> result = userDoc.update(formattedValues);
         return result.get();
     }
