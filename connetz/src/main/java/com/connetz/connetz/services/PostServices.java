@@ -63,5 +63,26 @@ public class PostServices {
         return result.get();
     }
 
+    public WriteResult removePost(String id) throws ExecutionException, InterruptedException
+    {
+        DocumentReference postRef = firestore.collection("Posts").document(id);
+
+        ApiFuture<WriteResult> result = postRef.delete();
+
+        return result.get();
+    }
+
+    public String createPost(Post post) throws ExecutionException, InterruptedException
+    {
+        CollectionReference PostCollection = firestore.collection("Posts");
+
+        ApiFuture<DocumentReference> future = PostCollection.add(post);
+
+        DocumentReference docRef = future.get();
+
+        return docRef.getId();
+    }
+
+
 
 }
