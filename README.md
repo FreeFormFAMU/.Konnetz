@@ -76,6 +76,7 @@ https://github.com/FreeFormFAMU/.Konnetz/assets/96313489/aff47ce5-a77e-40ee-84e9
 
 # Sprint Cycle 1 Database 
 Created the database desgin for the project 
+
 https://github.com/FreeFormFAMU/.Connetz/assets/96313489/dd24993b-e1fc-4b1f-835b-bd0fd816d119
 
 # Sprint Cycle 2 Models and Classes 
