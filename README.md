@@ -82,7 +82,7 @@ https://github.com/FreeFormFAMU/.Connetz/assets/96313489/dd24993b-e1fc-4b1f-835b
 # Sprint Cycle 2 Models and Classes 
 In this Sprint we have completed the model classes as well as start on the controlle and services
 
-
+![Connetz2](https://github.com/FreeFormFAMU/.Connetz/assets/96313489/0058cbb7-c450-4d75-a553-20cca49522a5)
 
 ## Models
 
