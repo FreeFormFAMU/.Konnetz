@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 // Same Message controlls that we have in class
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/message")
 public class MessageController {
 }
