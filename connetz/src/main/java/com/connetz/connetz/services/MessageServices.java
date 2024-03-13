@@ -4,6 +4,7 @@ package com.connetz.connetz.services;
 import com.connetz.connetz.controllers.MessageController;
 import com.connetz.connetz.models.Chat;
 import com.connetz.connetz.models.User;
+import com.connetz.connetz.models.messages.Messages;
 import com.connetz.connetz.util.ApiResponseFormat;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -22,6 +23,43 @@ public class MessageServices {
     private Firestore firestore;
 
     public MessageServices () {this.firestore= FirestoreClient.getFirestore(); }
+
+    public Messages documentSnapshotToMessage(DocumentSnapshot document) throws ExecutionException, InterruptedException
+    {
+        if(document.exists())
+        {
+            User sender = null, reciever = null;
+
+            DocumentReference senderRef = (DocumentReference)  document.get("senderId");
+
+            if(senderRef != null)
+            {
+                DocumentSnapshot userSnapshot = senderRef.get().get();
+                if(userSnapshot.exists())
+                {
+                    sender = userSnapshot.toObject(User.class);
+                }
+            }
+
+            DocumentReference receiverRef = (DocumentReference) document.get("receiverId");
+            if(senderRef != null)
+            {
+                DocumentSnapshot userSnapshot = receiverRef.get().get();
+                if(userSnapshot.exists())
+                {
+                    reciever = userSnapshot.toObject(User.class);
+                }
+            }
+
+
+            //return new Messages( document.getId(), document.getString("message_content"), document.getTimestamp("timestamp"), sender, reciever);
+            return  new Messages(document.getId(), document.getString("message_content"), document.getTimestamp("timestamp"), sender, reciever );
+
+
+        }
+        return  null;
+
+    }
 
     public WriteResult updateMessages(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
     {
