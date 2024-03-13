@@ -2,11 +2,11 @@ package com.connetz.connetz.services;
 
 
 import com.connetz.connetz.controllers.MessageController;
+import com.connetz.connetz.models.Chat;
+import com.connetz.connetz.models.User;
 import com.connetz.connetz.util.ApiResponseFormat;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -44,6 +41,51 @@ public class MessageServices {
         DocumentReference userDoc = firestore.collection("Messages").document(id);
         ApiFuture<WriteResult> result = userDoc.update(formattedValues);
         return result.get();
+    }
+
+    public List<Chat> getMessageChats(String userId) throws ExecutionException, InterruptedException
+    {
+        Query querySender = firestore.collection("Messages").whereEqualTo("senderId", userId);
+        Query queryReceiver = firestore.collection("Messages").whereEqualTo("recieverId", userId);
+
+        Map<String, Chat> latestChatsMap = new HashMap<>();
+        ApiFuture<QuerySnapshot> senderFuture = querySender.get();
+        ApiFuture<QuerySnapshot> recieverFuture = queryReceiver.get();
+
+        List<Chat> chats = new ArrayList<>();
+
+        //Process sender chats
+        processChats(senderFuture.get(), latestChatsMap, userId);
+
+        processChats(recieverFuture.get(), latestChatsMap, userId);
+
+        chats.addAll(latestChatsMap.values());
+
+        return chats;
+    }
+
+    private void processChats(QuerySnapshot querySnapshot, Map<String, Chat> latestChatsMap, String userId) throws ExecutionException, InterruptedException
+    {
+        for (QueryDocumentSnapshot document : querySnapshot.getDocuments()) {
+            DocumentReference senderRef = (DocumentReference) document.get("senderId");
+            User sender = senderRef.get().get().toObject(User.class);
+
+            DocumentReference receiverRef = (DocumentReference) document.get("senderId");
+            User receiver = receiverRef.get().get().toObject(User.class);
+
+            Chat chat = new Chat(document.getString("content"),
+                    sender.getUserId(), sender.getUsername(),
+                    receiver.getUserId(), receiver.getUsername(),
+                    document.getTimestamp("timestamp"),
+                    userId == sender.getUserId()
+            );
+            String otherUserId = chat.isUserSender() ? chat.getReceiverId() : chat.getSenderId();
+
+            if (!latestChatsMap.containsKey(otherUserId) || chat.getTimestamp().compareTo(latestChatsMap.get(otherUserId).getTimestamp()) > 0) {
+                chat.setIsUserSender(userId.equals(chat.getSenderId()));
+                latestChatsMap.put(otherUserId, chat);
+            }
+        }
     }
 
 }
