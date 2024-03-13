@@ -21,4 +21,6 @@ public class User {
     private String password;
     private Timestamp created_at;
     private @Nullable Timestamp updated_at;
+    private String followersId;
+    private String followingId;
 }

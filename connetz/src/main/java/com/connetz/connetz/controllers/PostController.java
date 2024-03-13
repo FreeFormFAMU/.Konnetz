@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 // Create post will be in here, like_post will be in here,
 // The save_post will be in here and the comments post will be in here
+//
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/post")
 public class PostController {
 }

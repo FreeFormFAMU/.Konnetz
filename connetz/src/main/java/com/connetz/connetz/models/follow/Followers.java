@@ -37,6 +37,5 @@ public class Followers {
         this.followingId = followingId;
     }
 
-    // Getters and setters
 }
 
