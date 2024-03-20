@@ -37,18 +37,11 @@ public class FeedServices {
 
     public WriteResult addLike(String id) throws ExecutionException, InterruptedException
     {
-
         Map<String, Object> incrementValue = new HashMap<>();
         incrementValue.put("likes", FieldValue.increment(1));
-
         DocumentReference feedDoc = firestore.collection("Feed").document(id);
         ApiFuture<WriteResult> result = feedDoc.update(incrementValue);
-
-
         return result.get();
-
-
-
     }
 
 

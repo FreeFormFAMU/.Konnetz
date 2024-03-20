@@ -28,7 +28,7 @@ public class UserController {
 
 
     // Get the user by their id
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // check
     public ResponseEntity<ApiResponseFormat<User>> getUserByID(@PathVariable(name = "id") String id) {
         try {
             User user = userService.getUserById(id);
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     // Get all users
-    @GetMapping("/")
+    @GetMapping("/") // check
     public ResponseEntity<ApiResponseFormat<List<User>>> getAllUsers() {
         try {
             List<User> userList = userService.getAllUsers();
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     // Get followers by Id
-    @GetMapping("followers/{followers_id}")
+    @GetMapping("followers/{followers_id}") // trouble
     public ResponseEntity<ApiResponseFormat<User>> getFollowUser(@PathVariable(name="followers_id") String followersId) {
         try{
             User user = userService.getFollowUserId(followersId);
@@ -78,7 +78,7 @@ public class UserController {
     }
 
     // Get following by Id
-    @GetMapping("following/{following_id}")
+    @GetMapping("following/{following_id}")  // trouble
     public ResponseEntity<ApiResponseFormat<User>> getFollowingUserId(@PathVariable(name="following_id") String followingId) {
         try{
             User user = userService.getFollowingUserId(followingId);
@@ -95,7 +95,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("/") // check
     public ResponseEntity<ApiResponseFormat<String>> addUser(@RequestBody(required = false) User user){
         if (user == null) {
             return ResponseEntity.badRequest()
@@ -112,6 +112,38 @@ public class UserController {
 
         }
     }
+
+    @GetMapping("/following") // returns all the users but not specific following
+    public ResponseEntity<ApiResponseFormat<List<User>>> getAllFollowing() {
+        try {
+            List<User> userList = userService.getAllFollowing();
+            if (userList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponseFormat<>(true, "No following users found.", null, null));
+            }
+            return ResponseEntity.ok(new ApiResponseFormat<>(true, "Following users retrieved successfully", userList, null));
+        } catch (ExecutionException | InterruptedException e) {
+            Thread.currentThread().interrupt(); // Proper handling of InterruptedException
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponseFormat<>(false, "Error retrieving following users", null, e.getMessage()));
+        }
+    }
+
+    @GetMapping("/followers") // Same things gets all the followers
+    public ResponseEntity<ApiResponseFormat<List<User>>> getAllFollower() {
+        try {
+            List<User> userList = userService.getAllFollower();
+            if (userList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponseFormat<>(true, "No followers found.", null, null));
+            }
+            return ResponseEntity.ok(new ApiResponseFormat<>(true, "Followers retrieved successfully", userList, null));
+        } catch (ExecutionException | InterruptedException e) {
+            Thread.currentThread().interrupt(); // Proper handling of InterruptedException
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ApiResponseFormat<>(false, "Error retrieving followers", null, e.getMessage()));
+        }
+    }
+
+
 
 
 

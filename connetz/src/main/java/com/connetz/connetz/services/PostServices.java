@@ -11,11 +11,11 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class PostServices {
-    private Firestore firestore;
+    private final Firestore firestore;
 
     public PostServices() {this.firestore = FirestoreClient.getFirestore(); }
 
-    public Post documentSnapshotToUserService(DocumentSnapshot document)
+    public Post documentSnapshotToUser(DocumentSnapshot document)
     {
         if(document.exists())
             return document.toObject(Post.class);
@@ -28,7 +28,7 @@ public class PostServices {
         ApiFuture<QuerySnapshot> future = postCollection.get();
         List<Post> userList = new ArrayList<>();
         for (DocumentSnapshot document : future.get().getDocuments()) {
-            Post post = documentSnapshotToUserService(document);
+            Post post = documentSnapshotToUser(document);
             if (post != null) {
                 userList.add(post);
             }
@@ -40,7 +40,7 @@ public class PostServices {
         CollectionReference postCollection = firestore.collection("Post");
         ApiFuture<DocumentSnapshot> future = postCollection.document(postId).get();
         DocumentSnapshot document = future.get();
-        return (List<Post>) documentSnapshotToUserService(document);
+        return (List<Post>) documentSnapshotToUser(document);
     }
 
     public WriteResult updatePost(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException

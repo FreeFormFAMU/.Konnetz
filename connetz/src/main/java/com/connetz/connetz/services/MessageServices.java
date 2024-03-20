@@ -1,19 +1,11 @@
 package com.connetz.connetz.services;
-
-
-import com.connetz.connetz.controllers.MessageController;
 import com.connetz.connetz.models.Chat;
 import com.connetz.connetz.models.User;
 import com.connetz.connetz.models.messages.Messages;
-import com.connetz.connetz.util.ApiResponseFormat;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -124,6 +116,13 @@ public class MessageServices {
                 latestChatsMap.put(otherUserId, chat);
             }
         }
+    }
+
+    public  Messages getMessageById(String user_id) throws ExecutionException, InterruptedException{
+        CollectionReference userCollection = firestore.collection("Users");
+        ApiFuture<DocumentSnapshot> future = userCollection.document(user_id).get();
+        DocumentSnapshot document = future.get();
+        return documentSnapshotToMessage(document);
     }
 
 }
