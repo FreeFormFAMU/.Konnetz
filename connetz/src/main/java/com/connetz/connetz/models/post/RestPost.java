@@ -13,20 +13,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RestPost extends APost{
-    private DocumentReference postId;
-    private DocumentReference userId;
+    private DocumentReference post_id;
+    private DocumentReference user_id;
 
-    public RestPost(String content, Timestamp created_at, String post_id, Timestamp updated_at, String user_id, String comment_text, Timestamp commented_at, String comments_id, DocumentReference postId, DocumentReference userId) {
-        super(content, created_at, post_id, updated_at, user_id, comment_text, commented_at, comments_id);
-        this.postId = postId;
-        this.userId = userId;
-    }
-    public void setPostIDBy(String postId){
-        this.postId = Utility.retrieveDocumentReference("Post", postId);
-    }
 
-    public void setUserIDBy(String userId){
-        this.userId = Utility.retrieveDocumentReference("User", userId);
-    }
+
 
 }

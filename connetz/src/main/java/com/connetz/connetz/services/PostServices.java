@@ -1,5 +1,6 @@
 package com.connetz.connetz.services;
 
+import com.connetz.connetz.models.User;
 import com.connetz.connetz.models.post.Post;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -15,7 +16,7 @@ public class PostServices {
 
     public PostServices() {this.firestore = FirestoreClient.getFirestore(); }
 
-    public Post documentSnapshotToUser(DocumentSnapshot document)
+    public Post documentSnapshotToPost(DocumentSnapshot document)
     {
         if(document.exists())
             return document.toObject(Post.class);
@@ -24,23 +25,31 @@ public class PostServices {
 
     //Get all the Post
     public List<Post> getAllPost() throws ExecutionException, InterruptedException {
-        CollectionReference postCollection = firestore.collection("User");
+        CollectionReference postCollection = firestore.collection("Post");
         ApiFuture<QuerySnapshot> future = postCollection.get();
-        List<Post> userList = new ArrayList<>();
-        for (DocumentSnapshot document : future.get().getDocuments()) {
-            Post post = documentSnapshotToUser(document);
-            if (post != null) {
-                userList.add(post);
-            }
+
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+
+        List<Post> postList = new ArrayList<>();
+
+        for (DocumentSnapshot document : documents ) {
+
+            postList.add(documentSnapshotToPost(document));
+
         }
-        return userList;
+
+        return postList;
     }
 
-    public List<Post> getPostById (String postId) throws ExecutionException, InterruptedException {
-        CollectionReference postCollection = firestore.collection("Post");
-        ApiFuture<DocumentSnapshot> future = postCollection.document(postId).get();
+    public Post getPostById (String postId) throws ExecutionException, InterruptedException {
+
+        DocumentReference postRef = firestore.collection("Post").document(postId);
+
+        ApiFuture<DocumentSnapshot> future = postRef.get();
+
         DocumentSnapshot document = future.get();
-        return (List<Post>) documentSnapshotToUser(document);
+
+        return documentSnapshotToPost(document);
     }
 
     public WriteResult updatePost(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException

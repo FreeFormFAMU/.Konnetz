@@ -3,6 +3,7 @@ import com.connetz.connetz.models.post.Post;
 import com.connetz.connetz.services.PostServices;
 import com.connetz.connetz.util.ApiResponseFormat;
 import com.google.cloud.firestore.WriteResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/api/post")
 public class PostController {
 
+    @Autowired
     private final PostServices postServices;
 
     public PostController(PostServices postServices, PostServices postServices1) {
@@ -27,9 +29,10 @@ public class PostController {
 
     // Get all post getAllPost
     @GetMapping("/") // not found
-    public ResponseEntity<ApiResponseFormat<Post>>getAllPost(@PathVariable(name="id") String id) {
+    public ResponseEntity<ApiResponseFormat<Post>>getAllPost() {
         try{
             List<Post> postList = postServices.getAllPost();
+
             if(postList.isEmpty())
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponseFormat<>(true, "Post not found", null, null));
             return ResponseEntity.ok(new ApiResponseFormat<>(true,"Post receviced correct", postList, null));
@@ -43,7 +46,7 @@ public class PostController {
     @GetMapping("/{id}") // postid need to convert to a string
     public ResponseEntity<ApiResponseFormat<Post>> getPostById(@PathVariable(name = "id") String id) {
         try {
-            List<Post> post = postServices.getPostById(id);
+            Post post = postServices.getPostById(id);
 
             if (post != null)
                 return ResponseEntity.ok(new ApiResponseFormat<>(true, "User Found", post, null));

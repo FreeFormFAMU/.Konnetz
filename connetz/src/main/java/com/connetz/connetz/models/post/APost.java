@@ -14,15 +14,11 @@ import java.text.ParseException;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class APost {
+public abstract class APost {
+    @DocumentId
+    protected @Nullable String id;
     protected String content;
     protected Timestamp created_at;
-    protected String post_id;
     protected Timestamp updated_at;
-    protected String user_id;
-    protected String comment_text;
-    protected Timestamp commented_at;
-    protected String comments_id;
-
 
 }
