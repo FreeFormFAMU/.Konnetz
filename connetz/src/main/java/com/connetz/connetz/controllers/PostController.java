@@ -29,7 +29,7 @@ public class PostController {
 
     // Get all post getAllPost
     @GetMapping("/") // not found
-    public ResponseEntity<ApiResponseFormat<Post>>getAllPost() {
+    public ResponseEntity<ApiResponseFormat<List<Post>>>getAllPost() {
         try{
             List<Post> postList = postServices.getAllPost();
 
@@ -96,25 +96,26 @@ public class PostController {
 
     //Put to be able to Update the post
     // check
-    @PutMapping(path = "/{id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
-    public ResponseEntity<ApiResponseFormat<WriteResult>> updatePost(@PathVariable("id") String id,
-                                                                    @RequestBody Map<String,Object> updateValues) {
-        if (updateValues == null) {
-            return ResponseEntity.badRequest()
-                    .body(new ApiResponseFormat<>(false, "Request body is missing.", null, null));
-        }
+    @PutMapping(path="/{id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
+    public ResponseEntity<ApiResponseFormat<WriteResult>> updateUser(@PathVariable("id") String id, @RequestBody Map<String, Object> updateValues)
+    {
+        //Two different types of ways to pass a value in one method
 
+        //Get id of the user from url
         try {
-            WriteResult result = postServices.updatePost(id,updateValues);
+            WriteResult result = postServices.updatePost(id, updateValues);//function throws Exeception to get caught in this class to limit the try catches
+
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponseFormat<>(true, "Jobs successfully updated.", result, null));
-        } catch (ExecutionException | InterruptedException e) {
+                    .body(new ApiResponseFormat<>(false, "User successfully updated", result, null));
+        }catch(ExecutionException | InterruptedException e)
+        {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error updating user.", null, e));
+                    .body(new ApiResponseFormat<>(false, "Error updating user", null, e));
+
         }
+    }
 
     }
 
 
 
-}

@@ -37,7 +37,7 @@ public class MessageController {
         }
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<ApiResponseFormat<List<Chat>>> getMessageById(@PathVariable String userId) {
 
         try{
@@ -66,6 +66,6 @@ public class MessageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponseFormat<>(false, "Error updating message", null, e.getMessage()));
         }
-    }
+    }*/
 
 }
