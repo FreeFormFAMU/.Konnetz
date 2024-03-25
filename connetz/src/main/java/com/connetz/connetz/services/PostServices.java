@@ -54,7 +54,7 @@ public class PostServices {
 
     public WriteResult updatePost(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
     {
-        String[] notAllowed = {"createdAt", "post_id"};
+        String[] notAllowed = {"created_at", "post_id"};
 
         List<String> notAllowedFields = Arrays.asList(notAllowed);
 
