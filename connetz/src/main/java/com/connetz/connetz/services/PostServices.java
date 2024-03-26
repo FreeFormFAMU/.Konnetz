@@ -54,15 +54,15 @@ public class PostServices {
 
     public WriteResult updatePost(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
     {
-        String[] notAllowed = {"created_at", "post_id"};
+        String[] allowed = {"content", "updated_at"};
 
-        List<String> notAllowedFields = Arrays.asList(notAllowed);
+        List<String> AllowedFields = Arrays.asList(allowed);
 
         Map<String, Object> formattedValues = new HashMap<>();
 
         for(Map.Entry<String, Object> entry : updateFields.entrySet()) {
             String key = entry.getKey();
-            if(!notAllowedFields.contains(key)) {
+            if(AllowedFields.contains(key)) {
                 formattedValues.put(key, entry.getValue());
 
             }

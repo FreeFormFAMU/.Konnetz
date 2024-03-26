@@ -97,7 +97,7 @@ public class PostController {
     //Put to be able to Update the post
     // check
     @PutMapping(path="/{id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
-    public ResponseEntity<ApiResponseFormat<WriteResult>> updateUser(@PathVariable("id") String id, @RequestBody Map<String, Object> updateValues)
+    public ResponseEntity<ApiResponseFormat<WriteResult>> updatePath(@PathVariable("id") String id, @RequestBody Map<String, Object> updateValues)
     {
         //Two different types of ways to pass a value in one method
 
