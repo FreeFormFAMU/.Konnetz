@@ -1,6 +1,5 @@
 package com.connetz.connetz.services;
 
-import com.connetz.connetz.models.User;
 import com.connetz.connetz.models.post.Post;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -12,30 +11,37 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class PostServices {
+
     private final Firestore firestore;
 
-    public PostServices() {this.firestore = FirestoreClient.getFirestore(); }
-
-    public Post documentSnapshotToPost(DocumentSnapshot document)
+    public PostServices()
     {
-        if(document.exists())
-            return document.toObject(Post.class);
+        this.firestore = FirestoreClient.getFirestore();
+    }
+
+    public Post documentSnapshotToPost (DocumentSnapshot documentSnapshot)
+    {
+        if(documentSnapshot.exists())
+        {
+            return documentSnapshot.toObject(Post.class);
+        }
+
         return null;
     }
 
-    //Get all the Post
-    public List<Post> getAllPost() throws ExecutionException, InterruptedException {
+    public List<Post> getAllPost() throws ExecutionException, InterruptedException
+    {
         CollectionReference postCollection = firestore.collection("Post");
+
         ApiFuture<QuerySnapshot> future = postCollection.get();
 
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
         List<Post> postList = new ArrayList<>();
 
-        for (DocumentSnapshot document : documents ) {
-
+        for(DocumentSnapshot document: documents)
+        {
             postList.add(documentSnapshotToPost(document));
-
         }
 
         return postList;
@@ -52,6 +58,26 @@ public class PostServices {
         return documentSnapshotToPost(document);
     }
 
+    public String createPost(Post post) throws ExecutionException, InterruptedException
+    {
+        CollectionReference PostCollection = firestore.collection("Posts");
+
+        ApiFuture<DocumentReference> future = PostCollection.add(post);
+
+        DocumentReference docRef = future.get();
+
+        return docRef.getId();
+    }
+
+    public WriteResult removePost(String id) throws ExecutionException, InterruptedException
+    {
+        DocumentReference postRef = firestore.collection("Posts").document(id);
+
+        ApiFuture<WriteResult> result = postRef.delete();
+
+        return result.get();
+    }
+
     public WriteResult updatePost(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
     {
         String[] allowed = {"content", "updated_at"};
@@ -64,32 +90,12 @@ public class PostServices {
             String key = entry.getKey();
             if(AllowedFields.contains(key)) {
                 formattedValues.put(key, entry.getValue());
-
             }
+
         }
-        DocumentReference userDoc = firestore.collection("Posts").document(id);
+        DocumentReference userDoc = firestore.collection("Post").document(id);
         ApiFuture<WriteResult> result = userDoc.update(formattedValues);
         return result.get();
-    }
-
-    public WriteResult removePost(String id) throws ExecutionException, InterruptedException
-    {
-        DocumentReference postRef = firestore.collection("Posts").document(id);
-
-        ApiFuture<WriteResult> result = postRef.delete();
-
-        return result.get();
-    }
-
-    public String createPost(Post post) throws ExecutionException, InterruptedException
-    {
-        CollectionReference PostCollection = firestore.collection("Posts");
-
-        ApiFuture<DocumentReference> future = PostCollection.add(post);
-
-        DocumentReference docRef = future.get();
-
-        return docRef.getId();
     }
 
 
