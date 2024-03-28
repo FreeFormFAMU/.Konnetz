@@ -89,6 +89,7 @@ In this Sprint we have completed the model classes as well as start on the contr
 #Sprint Cycle 3 Frotend:
 -The team will start the build process for the front end of the application starting off with the sign-in and login pages 
 -Design some more pages on figmua for the front end. 
+![ConnetzS1](https://github.com/FreeFormFAMU/.Connetz/assets/96313489/64ff1514-e408-4321-9f11-3340a5e600af)
 
 ## Models
 
