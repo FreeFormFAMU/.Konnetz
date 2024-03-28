@@ -61,12 +61,12 @@ public class UserController {
 
     // Get followers by Id
     @GetMapping("followers/{followers_id}") // trouble
-    public ResponseEntity<ApiResponseFormat<User>> getFollowUser(@PathVariable(name="followers_id") String followersId) {
+    public ResponseEntity<ApiResponseFormat<List<User>>> getFollowUser(@PathVariable(name="followers_id") String followersId) {
         try{
-            User user = userService.getFollowUserId(followersId);
+            List<User> users = userService.getUserByFollower(followersId);
 
-            if (user != null)
-                return ResponseEntity.ok(new ApiResponseFormat<>(true, "User Found", user, null));
+            if (users != null)
+                return ResponseEntity.ok(new ApiResponseFormat<>(true, "User Found", users, null));
             else
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(new ApiResponseFormat<>(false, "User not found", null, null));
@@ -113,7 +113,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/following") // returns all the users but not specific following
+    /*@GetMapping("/following") // returns all the users but not specific following
     public ResponseEntity<ApiResponseFormat<List<User>>> getAllFollowing() {
         try {
             List<User> userList = userService.getAllFollowing();
@@ -126,7 +126,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponseFormat<>(false, "Error retrieving following users", null, e.getMessage()));
         }
-    }
+    }*/
 
     @GetMapping("/followers") // Same things gets all the followers
     public ResponseEntity<ApiResponseFormat<List<User>>> getAllFollower() {

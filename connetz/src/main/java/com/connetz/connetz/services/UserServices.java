@@ -1,7 +1,9 @@
 package com.connetz.connetz.services;
+import com.connetz.connetz.util.Utility;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import com.connetz.connetz.models.User;
 import java.util.*;
@@ -47,6 +49,20 @@ public class UserServices {
         return documentSnapshotToUser(document);
     }
 
+    @Nullable
+    private List<User> getUserList(Query query) throws InterruptedException, ExecutionException {
+        ApiFuture<QuerySnapshot> future = query.get();
+        List<QueryDocumentSnapshot> documentSnapshots = future.get().getDocuments();
+        List<User> userList = documentSnapshots.size() == 0 ? null : new ArrayList<>();
+
+        for(DocumentSnapshot document : documentSnapshots)
+        {
+             userList.add(documentSnapshotToUser(document));
+        }
+
+        return userList;
+    }
+
     // Updating the user information
     public WriteResult updateUserInformation(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
     {
@@ -84,15 +100,17 @@ public class UserServices {
 
 
     // Get follower by their id
-    public User getFollowUserId (String follower_id) throws ExecutionException, InterruptedException {
-        CollectionReference userCollection = firestore.collection("Users");
-        ApiFuture<DocumentSnapshot> future = userCollection.document(follower_id).get();
-        DocumentSnapshot document = future.get();
-        return documentSnapshotToUser(document);
+    public List<User> getUserByFollower (String follower_id) throws ExecutionException, InterruptedException {
+        //CollectionReference userCollection = firestore.collection("Users");
+        DocumentReference userRef = Utility.retrieveDocumentReference("Users", follower_id);
+
+        Query query = firestore.collection("Users").whereEqualTo("followers_id", follower_id);
+
+        return getUserList(query);
     }
 
-    // Get all the Following users following the follower
-    public List<User> getAllFollowing() throws ExecutionException, InterruptedException {
+    // Need to complete Followers class for this to work
+    public List<User> getFollowersByUser() throws ExecutionException, InterruptedException {
         CollectionReference userCollection = firestore.collection("Users");
         ApiFuture<QuerySnapshot> future = userCollection.get();
         List<User> userList = new ArrayList<>();

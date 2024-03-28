@@ -60,7 +60,7 @@ public class PostServices {
 
     public String createPost(Post post) throws ExecutionException, InterruptedException
     {
-        CollectionReference PostCollection = firestore.collection("Posts");
+        CollectionReference PostCollection = firestore.collection("Post");
 
         ApiFuture<DocumentReference> future = PostCollection.add(post);
 
@@ -71,7 +71,7 @@ public class PostServices {
 
     public WriteResult removePost(String id) throws ExecutionException, InterruptedException
     {
-        DocumentReference postRef = firestore.collection("Posts").document(id);
+        DocumentReference postRef = firestore.collection("Post").document(id);
 
         ApiFuture<WriteResult> result = postRef.delete();
 
