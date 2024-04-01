@@ -16,7 +16,7 @@ import java.text.ParseException;
 public abstract class AFeed {
     protected Integer comments_count;
     protected Timestamp created_at;
-    protected String feed_id;
+    protected String item_type;
     protected Integer likes_count;
-    protected String user_id;
+
 }

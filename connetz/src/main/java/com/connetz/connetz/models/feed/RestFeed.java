@@ -16,27 +16,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RestFeed extends AFeed {
 
-    private DocumentReference feedId;
-    private DocumentReference userId;
-    private DocumentReference postId;
+    private DocumentReference user_id;
 
-    public RestFeed(Integer comments_count, Timestamp created_at, String feed_id, Integer likes_count, String user_id, DocumentReference feedId, DocumentReference userId, DocumentReference postId) {
-        super(comments_count, created_at, feed_id, likes_count, user_id);
-        this.feedId = feedId;
-        this.userId = userId;
-        this.postId = postId;
-    }
 
-    public void setFeedIDBy(String feedId){
-        this.postId = Utility.retrieveDocumentReference("Feed", feedId);
-    }
 
-    public void setUserIDBy(String userId){
-        this.userId = Utility.retrieveDocumentReference("User", userId);
-    }
 
-    public void setPostIDBy(String postId){
-        this.userId = Utility.retrieveDocumentReference("Post", postId);
-    }
 
 }

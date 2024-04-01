@@ -1,7 +1,9 @@
 package com.connetz.connetz.services;
 
+import com.connetz.connetz.models.feed.Feed;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
+import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,7 +15,19 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class FeedServices {
-    private Firestore firestore;
+    private final Firestore firestore;
+
+    public FeedServices() {this.firestore = FirestoreClient.getFirestore();}
+
+    public Feed documentSnapshotToFeed (DocumentSnapshot documentSnapshot)
+    {
+        if(documentSnapshot.exists())
+        {
+            return documentSnapshot.toObject(Feed.class);
+        }
+
+        return null;
+    }
 
     /*public WriteResult addComment(String id, String comment)
     {
@@ -45,7 +59,7 @@ public class FeedServices {
     }
 
 
-    public WriteResult updateFeed(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
+    /*public WriteResult updateFeed(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
     {
         String[] notAllowed = {"createdAt", "feed_id"};
 
@@ -63,5 +77,5 @@ public class FeedServices {
         DocumentReference userDoc = firestore.collection("Feed").document(id);
         ApiFuture<WriteResult> result = userDoc.update(formattedValues);
         return result.get();
-    }
+    }*/
 }
