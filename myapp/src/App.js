@@ -10,6 +10,7 @@ import{
 } from "react-router-dom";
 import Category from "./Webpages/pages/Category";
 import IndividualPost from "./Webpages/pages/IndividualPost";
+import NotFound from "./Webpages/pages/NotFound";
 
 
 function App()
