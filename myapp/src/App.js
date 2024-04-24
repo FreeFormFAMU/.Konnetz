@@ -8,6 +8,7 @@ import{
   Routes,
   Route,
 } from "react-router-dom";
+import Category from "./Webpages/pages/Category";
 
 
 function App()
@@ -18,6 +19,7 @@ function App()
               <Menu />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/:slug" element={<Category />}  />
         </Routes>
               </div>
           <Footer />
