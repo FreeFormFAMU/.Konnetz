@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import YourPosts from "../YourPosts"
 
 
 
@@ -67,7 +68,7 @@ function Menu(props)
                                     </a>
                                     <ul className="dropdown-menu dropdown-menu-end"
                                         aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item">My Posts</a></li>
+                                        <li><a className="dropdown-item"><Link to={YourPosts}> Posts</Link></a></li>
                                         <li><a className="dropdown-item">My profile</a></li>
                                         <li><a className="dropdown-item">Logout</a></li>
                                     </ul>

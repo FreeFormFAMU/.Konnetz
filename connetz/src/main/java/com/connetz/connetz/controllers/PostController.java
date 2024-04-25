@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -64,77 +65,77 @@ public class PostController {
     }
 
     @GetMapping("/{id}") // postid need to convert to a string
-    public ResponseEntity<ApiResponseFormat<Post>> getPostById(@PathVariable(name = "id") String id) {
+    public ResponseEntity<Map<String, Object>> getPostById(@PathVariable(name = "id") String id) {
         try {
-            Post post = postServices.getPostById(id);
+            payload = postServices.getPostById(id);
+            statusCode = 200;
+            name = "post";
 
-            if (post != null)
-                return ResponseEntity.ok(new ApiResponseFormat<>(true, "User Found", post, null));
-            else
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new ApiResponseFormat<>(false, "User not found", null, null));
 
         } catch (ExecutionException | InterruptedException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error retrieving user", null, e.getMessage()));
+            payload = new ErrorMessage("Cannot fetch post from database", CLASS_NAME, e.toString());
         }
+
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponseFormat<String>> createPost(@RequestBody(required = false) Post post) {
+    public ResponseEntity<Map<String, Object>> createPost(@RequestBody(required = false) Post post) {
         try {
-            if (post == null) {
-                return ResponseEntity.badRequest()
-                        .body(new ApiResponseFormat<>(false, "Request body is missing.", null, null));
-            }
+            payload = postServices.createPost(post);
+            statusCode = 201;
+            name = "postId";
 
-            String id = postServices.createPost(post);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponseFormat<>(true, "Post was successfully created.", id, null));
         } catch (ExecutionException | InterruptedException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error creating post.", null, e));
+            payload = new ErrorMessage("Cannot create post", CLASS_NAME, e.toString());
 
         }
 
+        response = new ResponseWrapper(statusCode, name, payload);
 
+        return response.getResponse();
 
     }
 
     @DeleteMapping("remove/{id}") // check
-    public ResponseEntity<ApiResponseFormat<WriteResult>> deletePost(@PathVariable(name="id") String postId ){
+    public ResponseEntity<Map<String,Object>> deletePost(@PathVariable(name = "id") String postId) {
         try{
-            WriteResult result = postServices.removePost(postId);
-            return ResponseEntity.ok(new ApiResponseFormat<>(true, "Job deleted", result, null));
-        } catch(ExecutionException | InterruptedException e ) {
-            return ResponseEntity.status(404)
-                    .body(new ApiResponseFormat<>(false, "Unable to delete task", null, e));
+            postServices.removePost(postId);
+            statusCode = 204;
+            name = "message";
+            payload = "Delete successful for post with id " + postId;
+        }catch (Exception e){
+            payload = new ErrorMessage("Cannot delete post with id " + postId, CLASS_NAME, e.toString());
         }
+        response = new ResponseWrapper(statusCode,name, payload);
+
+        return response.getResponse();
     }
 
-    @PutMapping(path="/{id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
-    public ResponseEntity<ApiResponseFormat<WriteResult>> updatePath(@PathVariable("id") String id, @RequestBody Map<String, Object> updateValues)
-    {
+
+    @PutMapping(path = "/{id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
+    public ResponseEntity<Map<String,Object>> updatePath(@PathVariable("id") String id, @RequestBody Map<String, Object> updateValues) {
         //Two different types of ways to pass a value in one method
 
         //Get id of the user from url
         try {
-            WriteResult result = postServices.updatePost(id, updateValues);//function throws Exeception to get caught in this class to limit the try catches
+            postServices.updatePost(id, updateValues);
+            statusCode = 201;
+            name = "message";
+            payload = "Update successful for post with id " + id;
 
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponseFormat<>(false, "User successfully updated", result, null));
-        }catch(ExecutionException | InterruptedException e)
-        {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error updating user", null, e));
-
+        } catch (Exception e) {
+            payload = new ErrorMessage("Cannot update post with id " + id, CLASS_NAME, e.toString());
         }
+
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
 
 
     }
-
-
-
 }
 
 
