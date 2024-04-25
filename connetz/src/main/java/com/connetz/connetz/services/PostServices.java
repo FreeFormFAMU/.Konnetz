@@ -4,6 +4,8 @@ import com.connetz.connetz.models.post.Post;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,6 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class PostServices {
 
     private final Firestore firestore;
+    protected final Log logger = LogFactory.getLog(this.getClass());
 
     public PostServices()
     {

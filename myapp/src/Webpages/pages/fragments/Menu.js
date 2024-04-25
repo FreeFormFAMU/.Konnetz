@@ -15,7 +15,7 @@ function Menu(props)
     const [username, setUsername] = useState("jane_doe_222335");
 
 //use Effect added below variables
-    useEffect(() =>{
+    /*useEffect(() =>{
         const getCategories = async () => {
             await axios.get("https://localhost:8080/api/category/").then((response) => {
                 setCategories(response.data.categories);
@@ -28,7 +28,7 @@ function Menu(props)
             console.log(r);
         });
 
-    },[])//empty array included so request only runs once
+    },[])//empty array included so request only runs once*/
 
 
     return(

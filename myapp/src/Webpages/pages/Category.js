@@ -23,7 +23,7 @@ function Category()
 
         useEffect(() => {
             const getPosts = async () => {
-                await axios.get("http://localhost:8080/api/post/c/" + slug).then((response) => {
+                await axios.get("http://localhost:8080/api/post/" + "5IvxgfV9IMqkCIy5o9L2").then((response) => {
                     setPosts(response.data.posts);
 
                 }).catch((err) => {
@@ -34,7 +34,7 @@ function Category()
         }, [slug])
 
 
-        return (<ListLayout posts={this.posts} title={title} description={description}/>);
+        return (<ListLayout posts={posts} title={title} description={description}/>);
 
 }
 

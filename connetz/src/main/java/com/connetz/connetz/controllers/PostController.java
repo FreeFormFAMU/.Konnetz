@@ -3,11 +3,15 @@ package com.connetz.connetz.controllers;
 import com.connetz.connetz.models.post.Post;
 import com.connetz.connetz.services.PostServices;
 import com.connetz.connetz.util.ApiResponseFormat;
+import com.connetz.connetz.util.ResponseWrapper;
 import com.connetz.connetz.util.Utility;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.WriteResult;
+import org.apache.catalina.filters.AddDefaultCharsetFilter;
+import org.glassfish.jersey.internal.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,30 +22,45 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import com.connetz.connetz.util.ErrorMessage;
+
 @RestController
 @RequestMapping("api/posts")
 public class PostController {
 
-    @Autowired
+
     private final PostServices postServices;
+
+
+    @Value("${response.status}")
+    private int statusCode;
+    @Value("${response.name")
+    private String name;
+    private Object payload;
+    private ResponseWrapper response;
+    private static final String CLASS_NAME = "PostService";
 
     public PostController(PostServices postServices) {
         this.postServices = postServices;
+        payload = null;
     }
 
     @GetMapping("/")
-    public ResponseEntity<ApiResponseFormat<List<Post>>> getAllPosts() {
+    public ResponseEntity<Map<String, Object>> getAllPosts() {
         try {
-            List<Post> postList = postServices.getAllPost();
+            payload = postServices.getAllPost();
+            statusCode = 200;
+            name = "posts";
 
-            if (postList.isEmpty())
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponseFormat<>(true, "No posts found", null, null));
 
-            return ResponseEntity.ok(new ApiResponseFormat<>(true, "Post receviced correct", postList, null));
         } catch (ExecutionException | InterruptedException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error retrieving users", null, e.getMessage()));
+            payload = new ErrorMessage("Cannot fetch posts from database", CLASS_NAME, e.toString());
         }
+
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
+
     }
 
     @GetMapping("/{id}") // postid need to convert to a string

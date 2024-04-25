@@ -13,6 +13,7 @@ import IndividualPost from "./Webpages/pages/IndividualPost";
 import NotFound from "./Webpages/pages/NotFound";
 
 
+
 function App()
 {
   return(
@@ -21,7 +22,7 @@ function App()
               <Menu />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/:slug" element={<Category />}  />
+            <Route path="/:slug" element={<Category />}  />
           <Route path="/post/:postId" element={<IndividualPost />} />
           <Route element={<NotFound/>} path="*" />
         </Routes>

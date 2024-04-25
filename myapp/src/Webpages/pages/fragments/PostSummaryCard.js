@@ -1,24 +1,28 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
-function PostSummaryCard({post})
-{
-    return
+//Testing, will be using post.slug in actual project
+let test = "5IvxgfV9IMqkCIy5o9L2"
+
+function PostSummaryCard({post}) {
+
     const categories = post.categoryId?.map((category, idx) => category.title); // Use optional chaining
-
+    //<p className="mb-1"><small>./Category: {categories.join(", ")}</small></p>
+    //<h6 className="card-subtitle mb-2 text-muted">by {post.user_id.username}</h6>
     return (
-        <div className="card shadow-lg p-3 mb-4" key={post.postId}>
-            <div className="card-body">
-                <h5 className="card-title"><Link to={`/post/${post.slug}`}>{post.title}</Link></h5>
-                <h3>Testing</h3>
-                <h6 className="card-subtitle mb-2 text-muted">by {post.authorId.username}</h6>
-                <p className="card-text">{post.summary}</p>
-                <p className="mb-1"><small>Category: {categories.join(", ")}</small></p>
-                <p className="mb-1"><small>tags: {post.tags.map((tag, idx) => (
-                    <span className="badge bg-secondary me-2" key={idx}>{tag}</span>
-                ))}</small></p>
-            </div>
+        //<div className="card shadow-lg p-3 mb-4" key={post.post_id}>
+
+        <div className="card-body">
+            <h5 className="card-title"><Link to={`/post/5IvxgfV9IMqkCIy5o9L2`}>{post.content}</Link></h5>
+
+            <p className="card-text">{post.content}</p>
+
+
         </div>
+        //</div>
     );
 
 
 }
+
+export default PostSummaryCard;
