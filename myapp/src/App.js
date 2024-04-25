@@ -23,7 +23,7 @@ function App()
         <Routes>
           <Route path="/" element={<Home />} />
             <Route path="/:slug" element={<Category />}  />
-          <Route path="/post/:postId" element={<IndividualPost />} />
+          <Route path="/posts/:postId" element={<IndividualPost />} />
           <Route element={<NotFound/>} path="*" />
         </Routes>
               </div>

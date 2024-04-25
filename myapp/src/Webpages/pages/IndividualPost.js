@@ -13,7 +13,7 @@ function IndividualPost() {
     const [comments, setComments] = useState(null)
     const commentText = useRef("");
 
-    const postComment = ()=>{
+    const postComment = () => {
         const now = new Date();
 
         console.log(commentText.current.value)
@@ -23,12 +23,12 @@ function IndividualPost() {
             published: true,
             createdAt: now.toISOString(),
             publishedAt: now.toISOString(),
-            postId: postId,
-            authorId:`YOUR_AUTHOR_ID`
+            postId: '5IvxgfV9IMqkCIy5o9L2',
+            authorId: `YOUR_AUTHOR_ID`
         }
 
-        axios.post("http://localhost:8080/api/comment/", data)
-            .then((response)=>{
+        axios.post("http://localhost:8080/api/comments/", data)
+            .then((response) => {
                 alert("Succes")
                 commentText.current.value = ""
 
@@ -41,17 +41,30 @@ function IndividualPost() {
         })
     }
 
+    /*const getComments = async () => {
+        await axios.get("http://localhost:8080/api/comments/" + postId).then(response => {
+            setComments(response.data.comments);
+        }).catch(e => console.log(e))
+    }//Not defined in useEffect to access later
+*/
+
+    /*<p className="mb-1"><small>tags: {post.tags.map((tag, idx) => {
+                                            return <span className="badge bg-secondary me-2" key={idx}>Test said tag in brackets before</span>
+                                        })
+                                        }</small></p>*/
+
     //Asynchronous function to fetch comments
     const getComments = async () => {
-        await axios.get("http://localhost:8080/api/comments/" + postId).then(response => {
+        await axios.get("http://localhost:8080/api/comments/").then(response => {
             setComments(response.data.comments);
         }).catch(e => console.log(e))
     }//Not defined in useEffect to access later
 
     useEffect(() => {
         const getPost = async () => {
-            await axios.get("http://localhost:8080/api/post/" + postId).then((response) => {
+            await axios.get("http://localhost:8080/api/posts/" + postId).then((response) => {
                 setPost(response.data.post);
+                console.log("Individual Log is " + response.data.post)
                 setPublishedAt(new Date(response.data.post.publishedAt.seconds * 1000).toDateString());
             }).catch(e => {
                 console.log(e)
@@ -63,22 +76,32 @@ function IndividualPost() {
         getComments().then(null);
     }, [postId])
 
-    let categories = post ? post.categoryId.map((category, idx) =>{
+    /*let categories = post ? post.categoryId.map((category, idx) =>{
         return category.title
-    }) : []
+    }) : []*/
+
+    /*< p
+    className = "mb-1" > < small > Category
+:
+    {
+        categories.join(", ")
+    }
+</small></p>*/
 
     return (
         <>
 
             {
-                post  ?
+
+
+                post ?
                     <>
                         <div className="row mt-3">
                             <div className="row">
                                 <div className="col">
-                                    <h2>{post.title}</h2>
+                                    <h2>{post.title}Helllooo</h2>
                                     <small className="text-muted">
-                                        <p className="mb-1 ">&mdash; by {post.authorId.username}</p>
+                                        <p className="mb-1 ">&mdash; by {post.user_id}</p>
                                         <p>Published: {publishedAt} </p>
                                     </small>
                                 </div>
@@ -86,14 +109,10 @@ function IndividualPost() {
 
                             <div className="row">
                                 <div className="col">
-                                    <div className="card shadow-lg p-3 mb-4" >
+                                    <div className="card shadow-lg p-3 mb-4">
                                         <div className="card-text mb-3"> {HTMLReactParser(post.content)}</div>
-                                        <p className="mb-1"><small>Category: { categories.join(", ")
-                                        }</small></p>
-                                        <p className="mb-1"><small>tags: {post.tags.map((tag, idx) =>{
-                                            return <span className="badge bg-secondary me-2" key={idx}>{tag}</span>
-                                        })
-                                        }</small></p>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -123,17 +142,19 @@ function IndividualPost() {
                             <div className="row">
                                 <div className="col-12">
                                     <textarea className="form-control"
-                                              rows="5" style={{resize:"none"}}
-                                              placeholder="Enter your comment here..." id="comment" ref={commentText} />
+                                              rows="5" style={{resize: "none"}}
+                                              placeholder="Enter your comment here..." id="comment" ref={commentText}/>
                                 </div>
                                 <div className="col offset-10 mt-4 text-end">
-                                    <button type="button" className="btn btn-primary btn-rounded" onClick={postComment}>Post Comment</button>
+                                    <button type="button" className="btn btn-primary btn-rounded"
+                                            onClick={postComment}>Post Comment
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </>
                     :
-                    ""
+                    "No Individual Post"
             }
         </>
     );

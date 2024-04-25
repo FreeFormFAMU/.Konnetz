@@ -33,7 +33,7 @@ function ListLayout({ posts, title, description, isLoading, error }) {
             </div>
             {posts ? (
                 posts.map((post) => (
-                    <PostSummaryCard key={post.postId} post={post} />
+                    <PostSummaryCard key={post.id} post={post} />
                 ))
             ) : (
                 <p>No posts found.</p>
