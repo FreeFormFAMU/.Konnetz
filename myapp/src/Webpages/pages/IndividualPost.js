@@ -19,18 +19,18 @@ function IndividualPost() {
 
         console.log(commentText.current.value)
         let data = {
-            content: commentText.current.value,
-            title: "",
-            published: true,
-            createdAt: now.toISOString(),
-            publishedAt: now.toISOString(),
-            postId: '5IvxgfV9IMqkCIy5o9L2',
-            authorId: `YOUR_AUTHOR_ID`
+            comment_text: commentText.current.value,
+            comments_id: null,
+            commented_at: /*now.toISOString()*/null,
+            post_id: null,
+            user_id: null
         }
+
+        console.log(data);
 
         axios.post("http://localhost:8080/api/comments/", data)
             .then((response) => {
-                alert("Succes")
+                alert("Success")
                 commentText.current.value = ""
 
                 getComments().then(null)

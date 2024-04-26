@@ -46,5 +46,27 @@ public class CommentServices {
         return commentList;
     }
 
+    public Comments getCommentbyId(String id) throws ExecutionException, InterruptedException
+    {
+        DocumentReference postRef = firestore.collection("Comments").document(id);
+
+        ApiFuture<DocumentSnapshot> future = postRef.get();
+
+        DocumentSnapshot document = future.get();
+
+        return documentSnapshotToComment(document);
+    }
+
+    public String createComment(Comments commment) throws ExecutionException, InterruptedException
+    {
+        CollectionReference CommentCollection = firestore.collection("Comments");
+
+        ApiFuture<DocumentReference> future = CommentCollection.add(commment);
+
+        DocumentReference docRef = future.get();
+
+        return docRef.getId();
+    }
+
 
 }
