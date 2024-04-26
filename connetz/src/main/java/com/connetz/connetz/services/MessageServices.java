@@ -1,6 +1,6 @@
 package com.connetz.connetz.services;
 import com.connetz.connetz.models.Chat;
-import com.connetz.connetz.models.User;
+import com.connetz.connetz.models.user.User;
 import com.connetz.connetz.models.messages.Messages;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -85,16 +85,16 @@ public class MessageServices {
         List<Chat> chats = new ArrayList<>();
 
         //Process sender chats
-        processChats(senderFuture.get(), latestChatsMap, userId);
+        //processChats(senderFuture.get(), latestChatsMap, userId);
 
-        processChats(recieverFuture.get(), latestChatsMap, userId);
+        //processChats(recieverFuture.get(), latestChatsMap, userId);
 
         chats.addAll(latestChatsMap.values());
 
         return chats;
     }
 
-    private void processChats(QuerySnapshot querySnapshot, Map<String, Chat> latestChatsMap, String userId) throws ExecutionException, InterruptedException
+    /*private void processChats(QuerySnapshot querySnapshot, Map<String, Chat> latestChatsMap, String userId) throws ExecutionException, InterruptedException
     {
         for (QueryDocumentSnapshot document : querySnapshot.getDocuments()) {
             DocumentReference senderRef = (DocumentReference) document.get("senderId");
@@ -116,7 +116,7 @@ public class MessageServices {
                 latestChatsMap.put(otherUserId, chat);
             }
         }
-    }
+    }*/
 
     public  Messages getMessageById(String user_id) throws ExecutionException, InterruptedException{
         CollectionReference userCollection = firestore.collection("Users");

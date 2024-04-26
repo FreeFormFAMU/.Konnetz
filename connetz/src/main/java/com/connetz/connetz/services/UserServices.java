@@ -5,7 +5,7 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.firebase.database.annotations.Nullable;
 import org.springframework.stereotype.Service;
-import com.connetz.connetz.models.User;
+import com.connetz.connetz.models.user.User;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
@@ -64,7 +64,7 @@ public class UserServices {
     }
 
     // Updating the user information
-    public WriteResult updateUserInformation(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
+    public WriteResult updateUserInformation(String id, Map<String, String> updateFields) throws ExecutionException, InterruptedException
     {
         String[] notAllowed = {"created_at", "user_id", "username"};
 
@@ -72,7 +72,7 @@ public class UserServices {
 
         Map<String, Object> formattedValues = new HashMap<>();
 
-        for(Map.Entry<String, Object> entry : updateFields.entrySet()) {
+        for(Map.Entry<String, String> entry : updateFields.entrySet()) {
             String key = entry.getKey();
             if(!notAllowedFields.contains(key)) {
                 formattedValues.put(key, entry.getValue());

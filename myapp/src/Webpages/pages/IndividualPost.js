@@ -10,6 +10,7 @@ function IndividualPost() {
     const {postId} = useParams();
     const [post, setPost] = useState(null);
     const [publishedAt, setPublishedAt] = useState("")
+    const [user, setUsers] = useState(null)
     const [comments, setComments] = useState(null)
     const commentText = useRef("");
 
@@ -60,12 +61,25 @@ function IndividualPost() {
         }).catch(e => console.log(e))
     }//Not defined in useEffect to access later
 
+    const getUser = async(id) =>
+    {
+        await axios.get("http://localhost:8080/api/users/" + "INmxzkvH2eWUxF33vj2b").then(response =>
+        {
+            console.log("running get users")
+            setUsers(response.data.user)
+            console.log("user is " + response.data.user)
+        }).catch(e => console.log(e))
+    }
+
     useEffect(() => {
         const getPost = async () => {
             await axios.get("http://localhost:8080/api/posts/" + postId).then((response) => {
                 setPost(response.data.post);
                 console.log("Individual Log is " + response.data.post)
-                setPublishedAt(new Date(response.data.post.publishedAt.seconds * 1000).toDateString());
+                console.log("User id is " + response.data.post.user_id)
+                getUser(response.data.post.user_id)
+                setPublishedAt(new Date(response.data.post.created_at.seconds * 1000).toDateString());
+
             }).catch(e => {
                 console.log(e)
             })
@@ -74,7 +88,10 @@ function IndividualPost() {
         getPost().then(null);
 
         getComments().then(null);
+
     }, [postId])
+
+
 
     /*let categories = post ? post.categoryId.map((category, idx) =>{
         return category.title
@@ -88,6 +105,7 @@ function IndividualPost() {
     }
 </small></p>*/
 
+
     return (
         <>
 
@@ -96,12 +114,13 @@ function IndividualPost() {
 
                 post ?
                     <>
+
                         <div className="row mt-3">
                             <div className="row">
                                 <div className="col">
-                                    <h2>{post.title}Helllooo</h2>
+                                    <h2>{post.content}</h2>
                                     <small className="text-muted">
-                                        <p className="mb-1 ">&mdash; by {post.user_id}</p>
+                                        <p className="mb-1 ">&mdash; by {user.username}</p>
                                         <p>Published: {publishedAt} </p>
                                     </small>
                                 </div>

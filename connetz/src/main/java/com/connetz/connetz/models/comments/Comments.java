@@ -1,8 +1,7 @@
 package com.connetz.connetz.models.comments;
 
-import com.connetz.connetz.models.User;
+import com.connetz.connetz.models.user.User;
 import com.connetz.connetz.models.post.Post;
-import com.google.cloud.firestore.DocumentReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

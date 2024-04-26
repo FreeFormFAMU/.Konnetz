@@ -1,6 +1,6 @@
 package com.connetz.connetz.models.messages;
 
-import com.connetz.connetz.models.User;
+import com.connetz.connetz.models.user.User;
 import com.google.cloud.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;

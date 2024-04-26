@@ -1,18 +1,13 @@
 package com.connetz.connetz.controllers;
 
 import com.connetz.connetz.models.Chat;
-import com.connetz.connetz.models.User;
-import com.connetz.connetz.models.messages.Messages;
 import com.connetz.connetz.services.MessageServices;
 import com.connetz.connetz.util.ApiResponseFormat;
-import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.messaging.Message;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 

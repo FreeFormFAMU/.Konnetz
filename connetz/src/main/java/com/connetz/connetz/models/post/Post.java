@@ -1,8 +1,7 @@
 package com.connetz.connetz.models.post;
 
 
-import com.connetz.connetz.models.User;
-import com.google.cloud.firestore.DocumentReference;
+import com.connetz.connetz.models.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

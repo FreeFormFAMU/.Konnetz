@@ -17,6 +17,8 @@ public abstract class APost {
     @DocumentId
     protected @Nullable String id;
 
+    protected String user_id;
+
     protected String content;
 
     @JsonDeserialize(using = TimestampDeserializer.class)

@@ -1,9 +1,11 @@
 package com.connetz.connetz.controllers;
-import com.connetz.connetz.models.User;
+import com.connetz.connetz.models.user.User;
 import com.connetz.connetz.services.UserServices;
 import com.connetz.connetz.util.ApiResponseFormat;
+import com.connetz.connetz.util.ErrorMessage;
+import com.connetz.connetz.util.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -24,43 +26,59 @@ import java.util.concurrent.ExecutionException;
 public class UserController {
     @Autowired
     private final UserServices userService;
-    public UserController(UserServices userService) {this.userService = userService;}
+
+    @Value("${response.status}")
+    private int statusCode;
+
+    @Value("${response.name}")
+    private String name;
+
+    private Object payload;
+
+    private ResponseWrapper response;
+
+    private static final String CLASS_NAME = "UserService";
+
+
+    public UserController(UserServices userService) {
+        this.userService = userService;
+        payload = null;
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<Map<String, Object>> getAllUsers() {
+        try {
+            payload = userService.getAllUsers();
+            statusCode = 200;
+            name = "user";
+        } catch (ExecutionException | InterruptedException e) {
+            payload = new ErrorMessage("Cannot fetch users from database", CLASS_NAME, e.toString());
+        }
+
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
+    }
 
 
     // Get the user by their id
     @GetMapping("/{id}") // check
-    public ResponseEntity<ApiResponseFormat<User>> getUserByID(@PathVariable(name = "id") String id) {
+    public ResponseEntity<Map<String, Object>> getUserByID(@PathVariable(name = "id") String id) {
         try {
-            User user = userService.getUserById(id);
-
-            if (user != null)
-                return ResponseEntity.ok(new ApiResponseFormat<>(true, "User Found", user, null));
-            else
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(new ApiResponseFormat<>(false, "User not found", null, null));
-
+            payload = userService.getUserById(id);
+            statusCode = 200;
+            name = "user";
         } catch (ExecutionException | InterruptedException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error retrieving user", null, e.getMessage()));
+            payload = new ErrorMessage("Cannot fetch user with id " + id + " from database.", CLASS_NAME, e.toString());
         }
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
     }
 
-    // Get all users
-    @GetMapping("/") // check
-    public ResponseEntity<ApiResponseFormat<List<User>>> getAllUsers() {
-        try {
-            List<User> userList = userService.getAllUsers();
-            if (userList.isEmpty())
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponseFormat<>(true, "No users found.", null, null));
-            return ResponseEntity.ok(new ApiResponseFormat<>(true, "Users retrieved successfully", userList, null));
-        } catch (ExecutionException | InterruptedException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error retrieving users", null, e.getMessage()));
-        }
-    }
 
     // Get followers by Id
-    @GetMapping("followers/{followers_id}") // trouble
+    /*@GetMapping("followers/{followers_id}") // trouble
     public ResponseEntity<ApiResponseFormat<List<User>>> getFollowUser(@PathVariable(name="followers_id") String followersId) {
         try{
             List<User> users = userService.getUserByFollower(followersId);
@@ -93,25 +111,44 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ApiResponseFormat<>(false, "Error retrieving following", null, e.getMessage()));
         }
-    }
+    }*/
 
     @PostMapping("/") // check
-    public ResponseEntity<ApiResponseFormat<String>> addUser(@RequestBody(required = false) User user){
-        if (user == null) {
-            return ResponseEntity.badRequest()
-                    .body(new ApiResponseFormat<>(false, "Request body is missing.", null, null));
+    public ResponseEntity<ApiResponseFormat<String>> addUser(@RequestBody(required = false) User user) {
+        try {
+            payload = userService.createUser(user);
+            statusCode = 201;
+            name = "userId";
+        } catch (ExecutionException | InterruptedException e) {
+            payload = new ErrorMessage("Cannot create new user in database.", CLASS_NAME, e.toString());
         }
-        try{
-            String id = userService.createUser(user);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(new ApiResponseFormat<>(true, "User successfully created job.", id, null));
-        }
-        catch(ExecutionException | InterruptedException e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ApiResponseFormat<>(false, "Error creating user.", null, e));
 
-        }
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
     }
+
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<Map<String, Object>> updateUser(@PathVariable(name = "userId") String id, @RequestBody Map<String, String> updateValues) {
+
+
+        try {
+
+            userService.updateUserInformation(id, updateValues);
+            statusCode = 201;
+            name = "message";
+            payload = "Update successful for user with id " + id;
+
+        } catch (Exception e) {
+            payload = new ErrorMessage("Cannot update user with id " + id, CLASS_NAME, e.toString());
+        }
+
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
+    }
+}
 
     /*@GetMapping("/following") // returns all the users but not specific following
     public ResponseEntity<ApiResponseFormat<List<User>>> getAllFollowing() {
@@ -128,7 +165,7 @@ public class UserController {
         }
     }*/
 
-    @GetMapping("/followers") // Same things gets all the followers
+    /*@GetMapping("/followers") // Same things gets all the followers
     public ResponseEntity<ApiResponseFormat<List<User>>> getAllFollower() {
         try {
             List<User> userList = userService.getAllFollower();
@@ -149,4 +186,4 @@ public class UserController {
 
 
 
-}
+}*/
