@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public abstract class AUser {
     @DocumentId
-    private @Nullable String id;
-    private String username;
-    private String email;
-    private String password;
+    protected @Nullable String id;
+    protected String username;
+    protected String email;
+    protected String password;
 }

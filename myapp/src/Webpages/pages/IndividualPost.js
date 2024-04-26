@@ -63,7 +63,7 @@ function IndividualPost() {
 
     const getUser = async(id) =>
     {
-        await axios.get("http://localhost:8080/api/users/" + "INmxzkvH2eWUxF33vj2b").then(response =>
+        await axios.get("http://localhost:8080/api/users/" + id).then(response =>
         {
             console.log("running get users")
             setUsers(response.data.user)
@@ -88,6 +88,8 @@ function IndividualPost() {
         getPost().then(null);
 
         getComments().then(null);
+
+        getUser()
 
     }, [postId])
 
@@ -120,7 +122,7 @@ function IndividualPost() {
                                 <div className="col">
                                     <h2>{post.content}</h2>
                                     <small className="text-muted">
-                                        <p className="mb-1 ">&mdash; by {user.username}</p>
+                                        <p className="mb-1 ">&mdash; by {user?.username}</p>
                                         <p>Published: {publishedAt} </p>
                                     </small>
                                 </div>
