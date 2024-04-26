@@ -81,7 +81,7 @@ public class PostController {
         return response.getResponse();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<Map<String, Object>> createPost(@RequestBody(required = false) Post post) {
         try {
             payload = postServices.createPost(post);

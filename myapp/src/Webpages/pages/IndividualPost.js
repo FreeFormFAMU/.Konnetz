@@ -120,7 +120,7 @@ function IndividualPost() {
                         <div className="row mt-3">
                             <div className="row">
                                 <div className="col">
-                                    <h2>{post.content}</h2>
+                                    <h2>{post.title}</h2>
                                     <small className="text-muted">
                                         <p className="mb-1 ">&mdash; by {user?.username}</p>
                                         <p>Published: {publishedAt} </p>

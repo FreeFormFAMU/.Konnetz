@@ -8,9 +8,13 @@ import{
   Routes,
   Route,
 } from "react-router-dom";
+
+
 import Category from "./Webpages/pages/Category";
 import IndividualPost from "./Webpages/pages/IndividualPost";
 import NotFound from "./Webpages/pages/NotFound";
+import CreatePost from "./Webpages/pages/CreatePost";
+
 
 
 
@@ -24,6 +28,7 @@ function App()
           <Route path="/" element={<Home />} />
             <Route path="/:slug" element={<Category />}  />
           <Route path="/posts/:postId" element={<IndividualPost />} />
+            <Route path="/posts/create" element={<CreatePost />}/>
           <Route element={<NotFound/>} path="*" />
         </Routes>
               </div>

@@ -21,7 +21,7 @@ function PostSummaryCard({post}) {
 
 
         <div className="card-body">
-            <h5 className="card-title"><Link to={`/posts/${post.id}`}>{post.content}</Link></h5>
+            <h5 className="card-title"><Link to={`/posts/${post.id}`}>{post.title}</Link></h5>
 
             <p className="card-text">{post.content}</p>
 

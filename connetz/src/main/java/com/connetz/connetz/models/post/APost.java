@@ -19,6 +19,8 @@ public abstract class APost {
 
     protected String user_id;
 
+    public String title;
+
     protected String content;
 
     @JsonDeserialize(using = TimestampDeserializer.class)
