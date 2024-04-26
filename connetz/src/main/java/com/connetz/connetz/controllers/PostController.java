@@ -136,6 +136,24 @@ public class PostController {
 
 
     }
+
+// Get followers by Id
+    @GetMapping("users/{userId}") // trouble
+    public ResponseEntity<ApiResponseFormat<List<Post>>> getPostsByUser(@PathVariable(name="userId") String userId) {
+        try{
+            payload = postServices.getPostsByUser(userId);
+            statusCode = 200;
+            name = "posts";
+
+
+        } catch (ExecutionException | InterruptedException e) {
+            payload = new ErrorMessage("Cannot fetch posts from database", CLASS_NAME, e.toString());
+        }
+
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
+    }
 }
 
 

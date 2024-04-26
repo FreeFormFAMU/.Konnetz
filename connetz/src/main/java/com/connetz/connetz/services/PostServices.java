@@ -1,9 +1,12 @@
 package com.connetz.connetz.services;
 
 import com.connetz.connetz.models.post.Post;
+import com.connetz.connetz.models.user.User;
+import com.connetz.connetz.util.Utility;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.annotations.Nullable;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,20 @@ public class PostServices {
         }
 
         return null;
+    }
+
+    @Nullable
+    private List<Post> getPostList(Query query) throws InterruptedException, ExecutionException {
+        ApiFuture<QuerySnapshot> future = query.get();
+        List<QueryDocumentSnapshot> documentSnapshots = future.get().getDocuments();
+        List<Post> postList = documentSnapshots.size() == 0 ? null : new ArrayList<>();
+
+        for(DocumentSnapshot document : documentSnapshots)
+        {
+            postList.add(documentSnapshotToPost(document));
+        }
+
+        return postList;
     }
 
     public List<Post> getAllPost() throws ExecutionException, InterruptedException
@@ -70,6 +87,15 @@ public class PostServices {
         DocumentReference docRef = future.get();
 
         return docRef.getId();
+    }
+
+    public List<Post> getPostsByUser (String userId) throws ExecutionException, InterruptedException
+    {
+        //DocumentReference userRef = Utility.retrieveDocumentReference("Posts", follower_id);
+
+        Query query = firestore.collection("Post").whereEqualTo("user_id", userId);
+
+        return getPostList(query);
     }
 
     public WriteResult removePost(String id) throws ExecutionException, InterruptedException

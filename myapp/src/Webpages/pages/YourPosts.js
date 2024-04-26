@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
-
+import React, {Component, useEffect, useRef, useState} from 'react';
+import {useParams} from "react-router-dom";
+import ListLayout from "./fragments/ListLayout";
+import axios from 'axios'
 
 
 
@@ -10,29 +12,32 @@ import React, {Component} from 'react';
 
 // ListLayout.js
 
-function YourPosts({ posts, title, description, isLoading, error }) {
-    if (isLoading) {
-        return <p>Loading posts...</p>;
-    }
+function YourPosts() {
+    const [posts, setPosts] = useState(null);
 
-    if (error) {
-        return <p>Error fetching posts: {error.message}</p>;
-    }
+    // Fetch data on component mount
+    useEffect(() => {
+        const fetchData = async () => {
+            const url = "http://localhost:8080/api/posts/users/" + "test";
+            console.log("Hi guys")
+            try {
+
+                const response = await axios.get(url);
+                console.log("Test:", response.data);
+                console.log("Fetched posts:", response.data.posts); // Log fetched posts
+                //setPosts(response.data.posts);
+                setPosts(response.data.posts);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchData();
+    }, []); //
+
+
 
     return (
-        <div className="col-12">
-            <div className="row">
-                <div className="col-12">
-                    <h1 className="mt-3 display-3">{title}</h1>
-                    {description && (
-                        <p className="mb-2">
-                            <small className="text-muted">{description}</small>
-                        </p>
-                    )}
-                </div>
-            </div>
-
-        </div>
+        <ListLayout posts={posts} title="Latest Posts" description="" />
     );
 }
 
