@@ -18,7 +18,7 @@ function YourPosts() {
     // Fetch data on component mount
     useEffect(() => {
         const fetchData = async () => {
-            const url = "http://localhost:8080/api/posts/users/" + "test";
+            const url = "http://localhost:8080/api/posts/users/" + "test";//Will be replaced when authentication is added to be autheticated userID
             console.log("Hi guys")
             try {
 

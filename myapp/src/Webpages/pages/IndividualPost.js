@@ -4,7 +4,7 @@ import axios from "axios"
 import CommentCard from "./fragments/CommentCard"
 import HTMLReactParser from "html-react-parser";
 
-
+let idnum = 0;
 
 function IndividualPost() {
     const {postId} = useParams();
@@ -17,14 +17,17 @@ function IndividualPost() {
     const postComment = () => {
         const now = new Date();
 
+
         console.log(commentText.current.value)
         let data = {
             comment_text: commentText.current.value,
-            comments_id: null,
-            commented_at: /*now.toISOString()*/null,
-            post_id: null,
-            user_id: null
+            comments_id: idnum,
+            commented_at: now,
+            post_id: post.id,
+            user_id: post.user_id
         }
+
+        idnum++;
 
         console.log(data);
 
