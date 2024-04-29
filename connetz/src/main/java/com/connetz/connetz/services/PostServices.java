@@ -127,6 +127,15 @@ public class PostServices {
         return result.get();
     }
 
+    public List<Post> getPostsByCategory (String slug) throws ExecutionException, InterruptedException
+    {
+        //DocumentReference userRef = Utility.retrieveDocumentReference("Posts", follower_id);
+
+        Query query = firestore.collection("Post").whereEqualTo("slug", slug);
+
+        return getPostList(query);
+    }
+
 
 
 }

@@ -23,6 +23,8 @@ public abstract class APost {
 
     protected String content;
 
+    protected String slug;
+
     @JsonDeserialize(using = TimestampDeserializer.class)
     protected  Timestamp created_at;
 

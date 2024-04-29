@@ -23,7 +23,7 @@ function Category()
 
         useEffect(() => {
             const getPosts = async () => {
-                await axios.get("http://localhost:8080/api/post/" + "5IvxgfV9IMqkCIy5o9L2").then((response) => {
+                await axios.get("http://localhost:8080/api/posts/c/" + slug).then((response) => {
                     setPosts(response.data.posts);
 
                 }).catch((err) => {

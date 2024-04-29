@@ -100,23 +100,23 @@ public class PostController {
     }
 
     @DeleteMapping("remove/{id}") // check
-    public ResponseEntity<Map<String,Object>> deletePost(@PathVariable(name = "id") String postId) {
-        try{
+    public ResponseEntity<Map<String, Object>> deletePost(@PathVariable(name = "id") String postId) {
+        try {
             postServices.removePost(postId);
             statusCode = 204;
             name = "message";
             payload = "Delete successful for post with id " + postId;
-        }catch (Exception e){
+        } catch (Exception e) {
             payload = new ErrorMessage("Cannot delete post with id " + postId, CLASS_NAME, e.toString());
         }
-        response = new ResponseWrapper(statusCode,name, payload);
+        response = new ResponseWrapper(statusCode, name, payload);
 
         return response.getResponse();
     }
 
 
     @PutMapping(path = "/{id}", produces = Utility.DEFAULT_MEDIA_TYPE, consumes = Utility.DEFAULT_MEDIA_TYPE)
-    public ResponseEntity<Map<String,Object>> updatePath(@PathVariable("id") String id, @RequestBody Map<String, Object> updateValues) {
+    public ResponseEntity<Map<String, Object>> updatePath(@PathVariable("id") String id, @RequestBody Map<String, Object> updateValues) {
         //Two different types of ways to pass a value in one method
 
         //Get id of the user from url
@@ -137,10 +137,10 @@ public class PostController {
 
     }
 
-// Get followers by Id
+    // Get followers by Id
     @GetMapping("users/{userId}") // trouble
-    public ResponseEntity<ApiResponseFormat<List<Post>>> getPostsByUser(@PathVariable(name="userId") String userId) {
-        try{
+    public ResponseEntity<ApiResponseFormat<List<Post>>> getPostsByUser(@PathVariable(name = "userId") String userId) {
+        try {
             payload = postServices.getPostsByUser(userId);
             statusCode = 200;
             name = "posts";
@@ -154,7 +154,27 @@ public class PostController {
 
         return response.getResponse();
     }
+
+
+    @GetMapping("/c/{slug}")
+    public ResponseEntity<ApiResponseFormat<List<Post>>> getPostByCategory(@PathVariable(name = "slug") String slug) {
+        try {
+            payload = postServices.getPostsByCategory(slug);
+            statusCode = 200;
+            name = "posts";
+
+
+        } catch (ExecutionException | InterruptedException e) {
+            payload = new ErrorMessage("Cannot fetch posts from database", CLASS_NAME, e.toString());
+        }
+
+        response = new ResponseWrapper(statusCode, name, payload);
+
+        return response.getResponse();
+    }
 }
+
+
 
 
 

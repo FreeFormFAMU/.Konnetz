@@ -20,6 +20,7 @@ function ListLayout({ posts, title, description, isLoading, error }) {
         return <p>Error fetching posts: {error.message}</p>;
     }
 
+
     return (
         <div className="col-12">
             <div className="row">
