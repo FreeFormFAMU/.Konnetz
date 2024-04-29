@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PostSummaryCard from "./PostSummaryCard";
+import '../styles/Home.css'
 
 
 

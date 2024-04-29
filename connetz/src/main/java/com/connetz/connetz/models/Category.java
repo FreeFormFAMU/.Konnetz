@@ -13,7 +13,5 @@ public class Category {
     @DocumentId
     private @Nullable String categoryId;
     private String content;
-    private String title;
-    private String metaTitle;
     private String slug;
 }

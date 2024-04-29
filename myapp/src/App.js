@@ -2,6 +2,7 @@ import Home from "./Webpages/pages/Home"
 import React from "react"
 import Menu from "./Webpages/pages/fragments/Menu"
 import Footer from "./Webpages/pages/fragments/Footer"
+import './App.css'
 
 import{
   BrowserRouter as Router,

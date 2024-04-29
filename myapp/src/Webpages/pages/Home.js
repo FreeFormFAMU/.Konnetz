@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import ListLayout from "./fragments/ListLayout";
+import './styles/Home.css'
 
 const Home = () => {
     // State to hold posts data

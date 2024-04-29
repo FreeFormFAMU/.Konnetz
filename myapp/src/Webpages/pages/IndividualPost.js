@@ -3,6 +3,7 @@ import {useState, useRef,useEffect} from "react";
 import axios from "axios"
 import CommentCard from "./fragments/CommentCard"
 import HTMLReactParser from "html-react-parser";
+import '../pages/styles/Home.css';
 
 let idnum = 0;
 
