@@ -57,7 +57,7 @@ public class UserServices {
 
         for(DocumentSnapshot document : documentSnapshots)
         {
-             userList.add(documentSnapshotToUser(document));
+            userList.add(documentSnapshotToUser(document));
         }
 
         return userList;
@@ -100,13 +100,22 @@ public class UserServices {
 
 
     // Get follower by their id
-    public List<User> getUserByFollower (String follower_id) throws ExecutionException, InterruptedException {
-        //CollectionReference userCollection = firestore.collection("Users");
-        DocumentReference userRef = Utility.retrieveDocumentReference("Users", follower_id);
-
-        Query query = firestore.collection("Users").whereEqualTo("followers_id", follower_id);
-
-        return getUserList(query);
+    public List<User> getFollowersByUserId(String userId) throws ExecutionException, InterruptedException {
+        List<User> followers = new ArrayList<>();
+        // Assuming there's a 'Followers' collection with documents containing 'userId' and 'followerId'
+        ApiFuture<QuerySnapshot> future = firestore.collection("Followers")
+                .whereEqualTo("userId", userId)
+                .get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        for (QueryDocumentSnapshot doc : documents) {
+            String followerId = doc.getString("follower_id"); // Assuming the field that stores follower's userId is named 'followerId'
+            DocumentReference followerRef = firestore.collection("Users").document(followerId);
+            DocumentSnapshot followerDoc = followerRef.get().get();
+            if (followerDoc.exists()) {
+                followers.add(followerDoc.toObject(User.class));
+            }
+        }
+        return followers;
     }
 
     // Need to complete Followers class for this to work

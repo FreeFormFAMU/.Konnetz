@@ -46,7 +46,7 @@ public class PostController {
         payload = null;
     }
 
-    @GetMapping("/")
+    @GetMapping("/") // Good
     public ResponseEntity<Map<String, Object>> getAllPosts() {
         try {
             payload = postServices.getAllPost();
@@ -64,7 +64,7 @@ public class PostController {
 
     }
 
-    @GetMapping("/{id}") // postid need to convert to a string
+    @GetMapping("/{id}") // Good
     public ResponseEntity<Map<String, Object>> getPostById(@PathVariable(name = "id") String id) {
         try {
             payload = postServices.getPostById(id);
@@ -173,9 +173,5 @@ public class PostController {
         return response.getResponse();
     }
 }
-
-
-
-
 
 

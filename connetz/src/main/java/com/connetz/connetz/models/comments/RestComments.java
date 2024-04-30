@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RestComments extends AComments {
 
-    protected DocumentReference comments_id;//Lets get rid of this later
     protected DocumentReference post_id;
     protected DocumentReference user_id;
 }

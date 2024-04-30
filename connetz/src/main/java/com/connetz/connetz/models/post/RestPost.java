@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class RestPost extends APost{
 
 
-
     private DocumentReference post_id;
 
 

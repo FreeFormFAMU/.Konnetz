@@ -70,7 +70,7 @@ function Menu(props)
                                         aria-labelledby="navbarDropdownMenuLink">
                                         <li><a className="dropdown-item"><Link to={`/posts/create`}> Posts</Link></a></li>
                                         <li><a className="dropdown-item"><Link to={'/posts/test'}>My profile</Link></a></li>
-                                        <li><a className="dropdown-item">Logout</a></li>
+                                        <li><a className="dropdown-item"><Link to={'/Signup'}>Logout</Link></a></li>
                                     </ul>
                                 </div>
                             </div>

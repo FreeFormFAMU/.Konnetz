@@ -12,6 +12,5 @@ import lombok.NoArgsConstructor;
 public class Comments extends AComments{
 
     protected Post postId;
-    protected User userId;
-    protected Comments commentsId;//Lets get rid of this later
+    protected User userId;//Lets get rid of this later
 }
