@@ -68,9 +68,9 @@ function Menu(props)
                                     </a>
                                     <ul className="dropdown-menu dropdown-menu-end"
                                         aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item"><Link to={`/posts/create`}> Posts</Link></a></li>
+                                        <li><a className="dropdown-item"><Link to={`/posts/create`}> Create a Post</Link></a></li>
                                         <li><a className="dropdown-item"><Link to={'/posts/test'}>My profile</Link></a></li>
-                                        <li><a className="dropdown-item"><Link to={'/Signup'}>Logout</Link></a></li>
+                                        <li><a className="dropdown-item"><Link to={'/logout'}>Logout</Link></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@ function Menu(props)
                                 return (
                                     <li className="nav-item me-2 me-lg-0 d-none d-md-inline-block" key={idx}>
                                         <Link className="nav-link"
-                                              to={`/${category.slug}?t=${category.title}&c=${content}`}>{category.title}</Link>
+                                              to={`/${category.slug}?t=${category.content}&c=${content}`}>{category.content}</Link>
                                     </li>
                                 )
                             })

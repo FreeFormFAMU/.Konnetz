@@ -1,0 +1,55 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 215MB
+  application:
+    name: SpringBlogApplication
+
+security:
+  allow-credentials: true
+  allowed-origins:
+    - https://${DOMAIN}
+    - http://localhost:3000
+  allowed-methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+  allowed-headers:
+    - Expires
+    - pragma
+    - Authorization
+    - Origin
+    - Content-Type
+    - Accept
+    - Accept-Encoding
+    - Accept-Language
+    - Access-Control-Allow-Origin
+    - Access-Control-Allow-Headers
+    - Access-Control-Request-Method
+    - X-Requested-With
+    - X-Auth-Token
+    - X-Xsrf-Token
+    - X-Content-Type-Options
+    - Cache-Control
+    - Id-Token
+  allowed-public-apis:
+    - /api/login
+      - /api/register
+      - /api/logout
+      - /api/category/
+      - /api/comment/{postId:\w+}
+      - /api/post/**
+      - /api/post/{postId:\w+}
+      - /api/post/c/{slug:\w+}
+    - /favicon.ico
+    - /
+
+    - /css/**
+    - /js/**
+  exposed-headers:
+    - X-Xsrf-Token
