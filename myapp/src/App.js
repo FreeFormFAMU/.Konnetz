@@ -18,6 +18,7 @@ import CreatePost from "./Webpages/pages/CreatePost";
 import YourPosts from "./Webpages/pages/YourPosts";
 import YourIndividualPost from "./Webpages/pages/YourIndividualPost";
 import ManagePosts from "./Webpages/pages/ManagePosts";
+import CategoryPosts from "./Webpages/pages/CategoryPosts"
 
 
 
@@ -30,6 +31,7 @@ function App()
               <Menu />
         <Routes>
           <Route path="/" element={<Home />} />
+            <Route path="/posts/category/:slug" element={<CategoryPosts />}/>
             <Route path="/:slug" element={<Category />}  />
           <Route path="/posts/:postId" element={<IndividualPost />} />
             <Route path="/yourposts/:postId" element={<YourIndividualPost/>}/>

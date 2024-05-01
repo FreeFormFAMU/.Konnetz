@@ -98,6 +98,7 @@ function Menu(props)
                         {categories ? (
                             categories.map((category) => (
                                 <CategoryCard key={category.id} category={category} />
+
                             ))
                         ) : (
                             <p>No posts found.</p>

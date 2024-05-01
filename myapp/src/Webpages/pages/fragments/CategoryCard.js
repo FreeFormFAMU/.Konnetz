@@ -21,9 +21,9 @@ function CategoryCard({category}) {
 
 
             <div className="card-body">
-                <h5 className="card-title"><Link to={`/posts/${category.id}`}>{category.title}</Link></h5>
+                <h5 className="card-title">{category.title}</h5>
 
-                <p className="card-text">{category.content}</p>
+                <p className="card-text"><Link to={`/posts/category/${category.content}`}>{category.content}</Link></p>
 
 
 
