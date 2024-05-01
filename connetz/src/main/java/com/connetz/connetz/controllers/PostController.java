@@ -99,7 +99,7 @@ public class PostController {
 
     }
 
-    @DeleteMapping("remove/{id}") // check
+    @DeleteMapping("/remove/{id}") // check
     public ResponseEntity<Map<String, Object>> deletePost(@PathVariable(name = "id") String postId) {
         try {
             postServices.removePost(postId);
