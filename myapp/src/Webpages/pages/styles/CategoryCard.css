@@ -25,7 +25,7 @@
     color: white; /* Set title text color */
 }
 
-.card-text {
+.category-card-text {
     color: white; /* Set text color */
     text-decoration-color: white;
     font-size: large;
