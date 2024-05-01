@@ -109,7 +109,7 @@ public class PostServices {
 
     public WriteResult updatePost(String id, Map<String, Object> updateFields) throws ExecutionException, InterruptedException
     {
-        String[] allowed = {"content", "updated_at"};
+        String[] allowed = {"content", "title"};
 
         List<String> AllowedFields = Arrays.asList(allowed);
 

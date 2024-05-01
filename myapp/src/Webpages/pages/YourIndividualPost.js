@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useState, useRef,useEffect} from "react";
+import React, {useState, useRef,useEffect} from "react";
 import axios from "axios"
 import CommentCard from "./fragments/CommentCard"
 import HTMLReactParser from "html-react-parser";
@@ -14,6 +14,8 @@ function YourIndividualPost() {
     const [user, setUsers] = useState(null)
     const [comments, setComments] = useState(null)
     const commentText = useRef("");
+    const contentText = useRef("");
+    const titlecontent = useRef("");
 
 
     /*const getComments = async () => {
@@ -54,6 +56,23 @@ function YourIndividualPost() {
             console.log(e);
         })
     }
+
+    const updatePost = (id) =>
+    {
+        let data = {
+            content: contentText.current.value,
+            title: titlecontent.current.value,
+
+        }
+        axios.put("http://localhost:8080/api/posts/"+id, data).then((response) =>{
+            alert("Success")
+            console.log(id)
+
+    }).catch(e => {
+
+        console.log(e);
+    })
+}
 
     useEffect(() => {
         const getPost = async () => {
@@ -118,15 +137,30 @@ function YourIndividualPost() {
                                             <button type="button" className="btn btn-primary btn-rounded"
                                                     onClick={() => removePost(post.id)}>Remove Post
                                             </button>
+
+                                            <div className="col-12">
+                                    <textarea className="form-control"
+                                              rows="5" style={{resize: "none"}}
+                                              placeholder="Enter your post content here..." id="content"
+                                              ref={contentText}/>
+                                            </div>
+                                            <textarea className="form-control"
+                                                      rows="5" style={{resize: "none"}}
+                                                      placeholder="Enter your post content here..." id="title"
+                                                      ref={titlecontent}/>
                                         </div>
+
+                                        <button type="button" className="btn btn-primary btn-rounded"
+                                                onClick={() => updatePost(post.id)}>Update Post
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </>
-                    :
-                    "No Individual Post"
+
+                </>
+                :
+                "No Individual Post"
             }
         </>
     );
