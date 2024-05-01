@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import '../styles/CategoryCard.css'
 
 //Testing, will be using post.slug in actual project
 let test = "5IvxgfV9IMqkCIy5o9L2"
@@ -16,20 +17,21 @@ function CategoryCard({category}) {
     //<h6 className="card-subtitle mb-2 text-muted">by {post.user_id.username}</h6>
     ///post/${post.id}
     return (
-        <div className="card shadow-lg p-3 mb-4" key={category.id}>
+            <div id="card-style" className="card shadow-lg p-3 mb-4" key={category.id}>
 
 
 
             <div className="card-body">
                 <h5 className="card-title">{category.title}</h5>
 
-                <p className="card-text"><Link to={`/posts/category/${category.content}`}>{category.content}</Link></p>
+                <p className="card-text"><Link to={`/posts/category/${category.content}`} className="card-text">{category.content}</Link></p>
 
 
 
 
             </div>
         </div>
+
     );
 
 

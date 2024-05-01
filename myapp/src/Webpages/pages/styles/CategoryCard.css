@@ -1,0 +1,42 @@
+.card {
+    border: 0px solid #ddd; /* Define border style and width */
+    border-radius: 0.5rem; /* Add rounded corners */
+    margin: 1rem; /* Add margin for spacing */
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: #800080;
+}
+
+#card-style
+{
+    background-color: #800080;
+}
+
+
+.card-body {
+    padding: 1.5rem 2rem; /* Add padding for content spacing */
+    padding-top: 0;
+
+    padding-bottom: 0;
+    color: white
+}
+
+.card-title {
+    color: white; /* Set title text color */
+}
+
+.card-text {
+    color: white; /* Set text color */
+    text-decoration-color: white;
+    font-size: large;
+    font-weight: bold;
+}
+
+.card-text a, Link{
+    text-decoration-color:white;
+}
+
+.card:hover {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* Add hover shadow */
+}
+
