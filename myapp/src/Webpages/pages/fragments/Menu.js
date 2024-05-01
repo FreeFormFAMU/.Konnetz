@@ -7,6 +7,9 @@ import YourPosts from "../YourPosts"
 
 import {Link} from "react-router-dom";
 import logo from "../images/logo.png"
+import PostSummaryCard from "./PostSummaryCard";
+import Category from "../Category";
+import CategoryCard from "./CategoryCard";
 
 function Menu(props)
 {
@@ -18,7 +21,7 @@ function Menu(props)
 //use Effect added below variables
     useEffect(() =>{
         const getCategories = async () => {
-            await axios.get("https://localhost:8080/api/category/").then((response) => {
+            await axios.get("http://localhost:8080/api/category/").then((response) => {
                 setCategories(response.data.categories);
             }).catch((err) => {
                 console.log(err);
@@ -31,7 +34,14 @@ function Menu(props)
 
     },[])//empty array included so request only runs once*/
 
-
+   /* let content = encodeURIComponent(category.content);
+    return (
+        <li className="nav-item me-2 me-lg-0 d-none d-md-inline-block" key={id}>
+            <Link className="nav-link"
+                  to={`/${category.slug}?t=${category.slug}&c=${content}`}>{category.slug}</Link>
+        </li>
+    )
+})*/
     return(
         <header>
             <div className="p-3 text-center bg-white border-bottom">
@@ -85,17 +95,13 @@ function Menu(props)
                 <div className="container justify-content-center justify-content-md-between">
 
                     <ul className="navbar-nav flex-row">
-                        {
-                            categories.map((category, idx) => {
-                                let content = encodeURIComponent(category.content);
-                                return (
-                                    <li className="nav-item me-2 me-lg-0 d-none d-md-inline-block" key={idx}>
-                                        <Link className="nav-link"
-                                              to={`/${category.slug}?t=${category.title}&c=${content}`}>{category.title}</Link>
-                                    </li>
-                                )
-                            })
-                        }
+                        {categories ? (
+                            categories.map((category) => (
+                                <CategoryCard key={category.id} category={category} />
+                            ))
+                        ) : (
+                            <p>No posts found.</p>
+                        )}
 
                     </ul>
                 </div>

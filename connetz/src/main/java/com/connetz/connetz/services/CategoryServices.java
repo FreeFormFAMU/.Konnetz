@@ -1,10 +1,11 @@
 package com.connetz.connetz.services;
 
 import com.connetz.connetz.models.Category;
+import com.connetz.connetz.models.post.Post;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +24,21 @@ public class CategoryServices {
         return null;
     }
 
-    public ArrayList<Category> getCategories() throws ExecutionException, InterruptedException {
+    public List<Category> getCategories() throws ExecutionException, InterruptedException {
 
-        Query query = firestore.collection("Category").orderBy("title", Query.Direction.ASCENDING);
+        CollectionReference categoryCollection = firestore.collection("Category");
 
-        ApiFuture<QuerySnapshot> future = query.get();
+        ApiFuture<QuerySnapshot> future = categoryCollection.get();
+
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 
-        ArrayList<Category> categories = documents.size() > 0 ? new ArrayList<>() : null;
+        List<Category> categoryList = new ArrayList<>();
 
-        for(QueryDocumentSnapshot doc : documents){
-            categories.add(doc.toObject(Category.class));
+        for(DocumentSnapshot document: documents)
+        {
+            categoryList.add(documentSnapshotToCategory(document));
         }
-        return categories;
+
+        return categoryList;
     }
 }

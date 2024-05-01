@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/api/category")//sets up the base resource url for all calls to methods in this file
 public class CategoryController {
 
-
+    @Autowired
     private final CategoryServices categoryServices;
 
     @Value("${response.status}")
@@ -30,15 +30,16 @@ public class CategoryController {
     private ResponseWrapper response;
     private static final String CLASS_NAME = "CategoryService";
 
-    public CategoryController()
-    {
-        this.categoryServices = null;
+    public CategoryController(CategoryServices categoryServices) {
+        this.categoryServices = categoryServices;
         payload = null;
     }
+
 
     @GetMapping("/")
     public ResponseEntity<Map<String,Object>> getCategories(){
         try{
+            assert categoryServices != null;
             payload = categoryServices.getCategories();
             statusCode = 200;
             name = "categories";
