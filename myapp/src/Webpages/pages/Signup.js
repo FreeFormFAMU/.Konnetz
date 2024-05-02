@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import firebase from './firebase-config';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase";
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); // Setup useNavigate
 
     const handleSignup = async () => {
         try {
-            await firebase.auth().createUserWithEmailAndPassword(email, password);
+            await createUserWithEmailAndPassword(auth, email, password);
             console.log("Account created!");
+            navigate('/Menu'); // Navigate to the menu or home page
         } catch (error) {
             console.error(error.message);
         }
