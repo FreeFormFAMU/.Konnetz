@@ -80,11 +80,11 @@ function Menu(props)
                                     </a>
                                     <ul className="dropdown-menu dropdown-menu-end"
                                         aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item"><Link to={`/posts/create`}> Posts</Link></a>
+                                        <li><a className="dropdown-item"><Link to={`/posts/create`}> Create Post</Link></a>
                                         </li>
-                                        <li><a className="dropdown-item"><Link to={'/posts/Jwill'}>My profile</Link></a>
+                                        <li><a className="dropdown-item"><Link to={'/posts/Jwill'}>YourPosts</Link></a>
                                         </li>
-                                        <li><a className="dropdown-item"><Link to={'/Signup'}>Logout</Link></a></li>
+                                        <li><a className="dropdown-item"><Link to={'/Signup'}>Signup</Link></a></li>
                                     </ul>
                                 </div>
                             </div>

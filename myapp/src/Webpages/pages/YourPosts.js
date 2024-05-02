@@ -37,7 +37,7 @@ function YourPosts() {
 
 
     return (
-        <ListLayout posts={posts} title="Latest Posts" description="" />
+        <ListLayout posts={posts} title="Here are your Posts:" description="" />
     );
 }
 

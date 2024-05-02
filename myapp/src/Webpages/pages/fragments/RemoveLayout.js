@@ -26,7 +26,7 @@ function RemoveLayout({ posts, title, description, isLoading, error }) {
         <div className="col-12">
             <div className="row">
                 <div className="col-12">
-                    <h1 className="mt-3 display-3">{title}</h1>
+                    <h1 className="mt-2 display-3">{title}</h1>
                     {description && (
                         <p className="mb-2">
                             <small className="text-muted">{description}</small>

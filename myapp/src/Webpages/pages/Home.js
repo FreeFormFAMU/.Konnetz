@@ -27,7 +27,7 @@ const Home = () => {
     }, []); // Empty dependency array to run only once
 
     return (
-        <ListLayout posts={posts} title="Latest Posts" description="" />
+        <ListLayout posts={posts} title="Get Connected!" description="" />
     );
 };
 

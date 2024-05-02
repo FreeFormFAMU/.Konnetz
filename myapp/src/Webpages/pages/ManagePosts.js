@@ -38,7 +38,7 @@ function ManagePosts() {
 
 
     return (
-        <RemoveLayout posts={posts} title="Latest Posts" description="" />
+        <RemoveLayout posts={posts} title="Here are your Posts:" description="" />
     );
 }
 
