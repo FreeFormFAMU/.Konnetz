@@ -8,6 +8,7 @@ import '../styles/Menu.css'
 
 import {Link} from "react-router-dom";
 import logo from "../images/logo.png"
+import ProfilePic from "../images/ProfilePic.JPEG"
 import PostSummaryCard from "./PostSummaryCard";
 import Category from "../Category";
 import CategoryCard from "./CategoryCard";
@@ -75,12 +76,14 @@ function Menu(props)
 
                                        id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
                                        aria-expanded="false">
-                                        {username}
+                                        <img src={ProfilePic} height="55" alt="logo"/>
                                     </a>
                                     <ul className="dropdown-menu dropdown-menu-end"
                                         aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item"><Link to={`/posts/create`}> Posts</Link></a></li>
-                                        <li><a className="dropdown-item"><Link to={'/posts/Jwill'}>My profile</Link></a></li>
+                                        <li><a className="dropdown-item"><Link to={`/posts/create`}> Posts</Link></a>
+                                        </li>
+                                        <li><a className="dropdown-item"><Link to={'/posts/Jwill'}>My profile</Link></a>
+                                        </li>
                                         <li><a className="dropdown-item"><Link to={'/Signup'}>Logout</Link></a></li>
                                     </ul>
                                 </div>
