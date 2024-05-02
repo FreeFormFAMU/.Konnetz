@@ -19,6 +19,8 @@ import CreatePost from "./Webpages/pages/CreatePost";
 import YourPosts from "./Webpages/pages/YourPosts";
 import Login from "./Webpages/pages/Login";
 import Signup from "./Webpages/pages/Signup";
+import ManagePosts from "./Webpages/pages/ManagePosts";
+import YourIndividualPost from "./Webpages/pages/YourIndividualPost";
 
 
 
@@ -33,10 +35,11 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/:slug" element={<Category />} />
+                    <Route path="/posts/category/:slug" element={<Category />} />
                     <Route path="/posts/:postId" element={<IndividualPost />} />
                     <Route path="/posts/create" element={<CreatePost />} />
-                    <Route path="/posts/test" element={<YourPosts />} />
+                    <Route path="/posts/Jwill" element={<ManagePosts />} />
+                    <Route path="/yourposts/:postId" element={<YourIndividualPost />}/>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

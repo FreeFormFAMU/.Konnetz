@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post extends  APost{
-    protected User userId;
+    //protected User userId;
     protected Post postId;
 
 }

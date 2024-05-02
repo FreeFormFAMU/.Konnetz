@@ -119,48 +119,61 @@ function YourIndividualPost() {
                     <>
 
                         <div className="row mt-3">
-                            <div className="row">
-                                <div className="col">
-                                    <h2>{post.title}</h2>
-                                    <small className="text-muted">
-                                        <p className="mb-1 ">&mdash; by {user?.username}</p>
-                                        <p>Published: {publishedAt} </p>
-                                    </small>
-                                </div>
+                            <div className="col">
+                                <h2>{post.title}</h2>
+                                <small className="text-muted">
+                                    <p className="mb-1">&mdash; by {user?.username}</p>
+                                    <p>Published: {publishedAt}</p>
+                                </small>
                             </div>
 
-                            <div className="row">
-                                <div className="col">
-                                    <div className="card shadow-lg p-3 mb-4">
-                                        <div className="card-text mb-3"> {HTMLReactParser(post.content)}</div>
-                                        <div className="col offset-10 mt-4 text-end">
-                                            <button type="button" className="btn btn-primary btn-rounded"
-                                                    onClick={() => removePost(post.id)}>Remove Post
-                                            </button>
+                            <div className="col">
+                                <div className="card shadow-lg p-3 mb-4">
+                                    {/* Post Content Section */}
+                                    <div className="card-text mb-3">{HTMLReactParser(post.content)}</div>
 
-                                            <div className="col-12">
-                                    <textarea className="form-control"
-                                              rows="5" style={{resize: "none"}}
-                                              placeholder="Enter your post content here..." id="content"
-                                              ref={contentText}/>
-                                            </div>
-                                            <textarea className="form-control"
-                                                      rows="5" style={{resize: "none"}}
-                                                      placeholder="Enter your post content here..." id="title"
-                                                      ref={titlecontent}/>
-                                        </div>
-
-                                        <button type="button" className="btn btn-primary btn-rounded"
-                                                onClick={() => updatePost(post.id)}>Update Post
+                                    {/* Post Actions Section (buttons and text areas) */}
+                                    <div className="d-flex justify-content-end mt-4">
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary btn-rounded me-2"
+                                            onClick={() => removePost(post.id)}
+                                        >
+                                            Remove Post
                                         </button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary btn-rounded"
+                                            onClick={() => updatePost(post.id)}
+                                        >
+                                            Update Post
+                                        </button>
+                                    </div>
+                                    <div className="mt-3">
+                <textarea
+                    className="form-control"
+                    rows="5"
+                    style={{resize: "none"}}
+                    placeholder="Enter your post content here..."
+                    id="content"
+                    ref={contentText}
+                />
+                                        <textarea
+                                            className="form-control mt-2"
+                                            rows="3"
+                                            style={{resize: "none"}}
+                                            placeholder="Enter your post title here..."
+                                            id="title"
+                                            ref={titlecontent}
+                                        />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                </>
-                :
-                "No Individual Post"
+                    </>
+                    :
+                    "No Individual Post"
             }
         </>
     );

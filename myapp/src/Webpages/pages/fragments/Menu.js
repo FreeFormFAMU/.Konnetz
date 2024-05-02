@@ -17,7 +17,7 @@ function Menu(props)
 
 
     const [categories, setCategories] = useState([]);
-    const [username, setUsername] = useState("jane_doe_222335");
+    const [username, setUsername] = useState("Jwill");
 
 //use Effect added below variables
     useEffect(() =>{
@@ -80,7 +80,7 @@ function Menu(props)
                                     <ul className="dropdown-menu dropdown-menu-end"
                                         aria-labelledby="navbarDropdownMenuLink">
                                         <li><a className="dropdown-item"><Link to={`/posts/create`}> Posts</Link></a></li>
-                                        <li><a className="dropdown-item"><Link to={'/posts/test'}>My profile</Link></a></li>
+                                        <li><a className="dropdown-item"><Link to={'/posts/Jwill'}>My profile</Link></a></li>
                                         <li><a className="dropdown-item"><Link to={'/Signup'}>Logout</Link></a></li>
                                     </ul>
                                 </div>
