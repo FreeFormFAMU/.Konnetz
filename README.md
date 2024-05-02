@@ -194,8 +194,12 @@ Profile Screen
 
   (Update/PUT) Update user account information
 
+PROMOTIONAL POSTER
+
+[Connetz is a social networking app designed for individuals to publicly showcase their skills and portfolios, engage in discussions, chat with others, and monetize their expertise. It aims to fost.pdf](..%2F..%2F..%2FDownloads%2FConnetz%20is%20a%20social%20networking%20app%20designed%20for%20individuals%20to%20publicly%20showcase%20their%20skills%20and%20portfolios%2C%20engage%20in%20discussions%2C%20chat%20with%20others%2C%20and%20monetize%20their%20expertise.%20It%20aims%20to%20fost.pdf)
 
 
+![image001.png](..%2F..%2F..%2FDownloads%2Fimage001.png)
 
 
 
