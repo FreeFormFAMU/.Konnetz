@@ -37,7 +37,7 @@ function Footer()
         </div>
 
         <div className="text-center p-3" style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}>
-            &copy; 2023 Copyright &nbsp;
+            &copy; 2024 Copyright &nbsp;
             <a className="text-white" href="http://localhost:3000">Connectz </a>
         </div>
 
