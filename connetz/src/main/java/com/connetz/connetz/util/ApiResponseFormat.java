@@ -1,3 +1,3 @@
 package com.connetz.connetz.util;
 
-public record ApiResponseFormat(boolean success, String message, Object data, Object error) {}
+public record ApiResponseFormat<T extends Object>(boolean success, String message, T data, Object error) {}

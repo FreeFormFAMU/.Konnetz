@@ -1,0 +1,11 @@
+.navbar-nav {
+    display: flex; /* Ensure flexbox for spacing */
+    justify-content: space-between; /* Distribute evenly */
+    padding-left: 5rem ;
+    padding-right: 10rem; /* Increase padding for more space */
+}
+
+.navbar-nav > ul {
+    padding-left: 5rem ;
+    padding-right: 10rem; /* Increase padding for more space */
+}
